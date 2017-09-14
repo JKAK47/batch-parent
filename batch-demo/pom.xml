@@ -11,6 +11,7 @@
   <artifactId>batch-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>batch-demo</name>
+  <packaging>jar</packaging>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
