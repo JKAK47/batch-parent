@@ -28,6 +28,9 @@
 		<hydra.version>1.0-RELEASES</hydra.version>
 	</properties>
 	
+	<!-- 主Pom 中通过 dependencyManagement 将子模块可能会用到的jar包 依赖先 引入进来
+		子模块需要哪个jar 只需要讲对应的groupId , artifactId 元素引入即可，不用version。
+	-->
   	<dependencyManagement>
   		<dependencies>
 		    <dependency>
