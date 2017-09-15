@@ -8,6 +8,7 @@
 
     <import resource="batchSetting.xml"/>
 
+    <!-- helloworld01 begin -->
     <batch:job id="helloWorldJob">
         <batch:step id="step_hello" next="step_world">
             <batch:tasklet ref="hello" transaction-manager="transactionManager"></batch:tasklet>
@@ -24,4 +25,10 @@
     <bean id="world" class="org.batch.demo.helloworld01.WriteTaskLet">
         <property name="Msg" value=" World!"></property>
     </bean>
+    <!-- helloworld01 end -->
+    
+    
+    <!-- csv begin-->
+    
+    <!-- csv  end -->
 </beans>
