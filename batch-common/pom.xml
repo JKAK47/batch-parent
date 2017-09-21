@@ -24,7 +24,26 @@
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-beans</artifactId>
 	</dependency>
-	
+	 <!-- Servlet begin ,servlet runtime  -->
+		    <dependency>
+		        <groupId>javax.servlet</groupId>
+		        <artifactId>jstl</artifactId>
+		    </dependency>
+		    <dependency>
+		        <groupId>javax.servlet</groupId>
+		        <artifactId>servlet-api</artifactId>
+		        <scope>provided</scope>
+		    </dependency>
+		    <dependency>
+		        <groupId>javax.servlet.jsp</groupId>
+		        <artifactId>jsp-api</artifactId>
+		        <scope>provided</scope>
+		    </dependency>
+		    <dependency>
+		        <groupId>taglibs</groupId>
+		        <artifactId>standard</artifactId>
+		    </dependency>
+		    <!-- Servlet end -->
   </dependencies>
   <build>
     <finalName>batch-common</finalName>

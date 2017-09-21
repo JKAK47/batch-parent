@@ -33,12 +33,39 @@
 	-->
   	<dependencyManagement>
   		<dependencies>
+  			<!-- junit -->
 		    <dependency>
 		      <groupId>junit</groupId>
 		      <artifactId>junit</artifactId>
 		      <version>${junit.version}</version>
 		      <scope>test</scope>
 		    </dependency>
+		    
+		    <!-- Servlet begin ,servlet runtime  -->
+		    <dependency>
+		        <groupId>javax.servlet</groupId>
+		        <artifactId>jstl</artifactId>
+		        <version>1.2</version>
+		    </dependency>
+		    <dependency>
+		        <groupId>javax.servlet</groupId>
+		        <artifactId>servlet-api</artifactId>
+		        <version>2.5</version>
+		        <scope>provided</scope>
+		    </dependency>
+		    <dependency>
+		        <groupId>javax.servlet.jsp</groupId>
+		        <artifactId>jsp-api</artifactId>
+		        <version>2.1</version>
+		        <scope>provided</scope>
+		    </dependency>
+		    <dependency>
+		        <groupId>taglibs</groupId>
+		        <artifactId>standard</artifactId>
+		        <version>1.1.2</version>
+		    </dependency>
+		    <!-- Servlet end -->
+		    
 		    <!-- commons begin -->
 		    <dependency>
 				<groupId>commons-collections</groupId>
