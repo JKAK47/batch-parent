@@ -8,4 +8,7 @@ package org.batch.demo.csv;
  */
 public class JobLaunchTest {
 
+	public static void main(String[] args) {
+		System.out.println("LSDKFJDKFJ");
+	}
 }

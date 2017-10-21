@@ -301,5 +301,6 @@
   	<module>batch-db</module>
   	<module>batch-demo</module>
     <module>batch-java8</module>
+    <module>batch-base</module>
   </modules>
 </project>
