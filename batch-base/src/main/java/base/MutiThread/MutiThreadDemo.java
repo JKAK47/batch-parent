@@ -29,7 +29,7 @@ public class MutiThreadDemo {
         }  
         System.out.println("当前线程数：" + Runtime.getRuntime().availableProcessors()); 
         /**
-         * 指示关闭线程池了，不在接收新的任务
+         * 指示关闭线程池了，不在接收新的任务提交
          */
         fixedThreadPool.shutdown();
         /**
@@ -40,8 +40,8 @@ public class MutiThreadDemo {
     }  
   
     public static void main(String[] args) throws ExecutionException, InterruptedException {  
-        testFixedThreadPool();  
-    	//testCachedThreadPool();
+        //testFixedThreadPool();  
+    	testCachedThreadPool();
         System.out.println("zhongg");
     } 
     
