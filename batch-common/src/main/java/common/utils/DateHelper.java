@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,17 +21,19 @@ import org.omg.CORBA.SystemException;
  *
  */
 public class DateHelper {
-	/* 2017-10-31 形式的日期格式 */
+	/** 2017-10-31 形式的日期格式 */
 	public static String DATE_FORMAT = "yyyy-MM-dd";
 	/* 2017-10-31 20:20:40 形式的日期,时间格式 */
 	public static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	/* 2017年10月31日 形式的日期格式 */
 	public static String DATE_FORMAT_CHINESE = "yyyy年M月d日";
 	/* 2017年10月31日 20时30分40秒 形式的日期时间格式 */
-	public static String DATE_FORMAT_TIME_CHINESE = "yyyy年MM月dd日 HH时mm分ss秒";
+	public static String DATE_TIME_FORMAT_CHINESE = "yyyy年MM月dd日 HH时mm分ss秒";
 	/* 2017年10月31日 20时30分40秒 星期三 形式的日期时间 星期三 格式 */
-	public static String DATE_FORMAT_TIME_WEEK_CHINESE = "yyyy年MM月dd日 HH时mm分ss秒 E";
+	public static String DATE_TIME_WEEK_FORMAT_CHINESE = "yyyy年MM月dd日 HH时mm分ss秒 E";
 
+	
+	
 	/**
 	 * 獲取当前系统日期Date
 	 *
@@ -63,7 +66,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 获取当前日期-时间 数据
+	 * 获取当前日期-时间 数据的字符串形式
 	 *
 	 *
 	 * @return
@@ -93,7 +96,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 将字符串日期转换为日期格式
+	 * 将字符串日期（yyyy-MM-dd ）转换为日期格式数据
 	 *
 	 *
 	 * @param datestr
@@ -115,9 +118,10 @@ public class DateHelper {
 	}
 
 	/**
-	 * 将字符串日期转换为日期格式 自定義格式
+	 * 将字符串日期(格式由 dateformat 指定)转换为日期格式 自定義格式
 	 *
 	 * @param datestr
+	 * @param dateformat
 	 * @return
 	 *
 	 */
@@ -172,7 +176,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 获取日期的DAY值
+	 * 获取参数日期为当月的第几天
 	 *
 	 *
 	 * @param date
@@ -189,7 +193,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 获取日期的当年的DAY值
+	 * 获取日期为当年的DAY值第几天
 	 *
 	 *
 	 * @param date
@@ -206,7 +210,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 获取日期的MONTH值
+	 * 获取日期的MONTH值,给定日期的月份
 	 *
 	 *
 	 * @param date
@@ -223,7 +227,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 获取日期的YEAR值
+	 * 获取日期的YEAR值，给定日期的年份
 	 *
 	 *
 	 * @param date
@@ -241,7 +245,11 @@ public class DateHelper {
 
 	/**
 	 * 获取星期几
-	 *
+	 *获取到给定日期是星期几，
+	 *星期天为 0;
+	 *星期一为 1 ;
+	 *...
+	 *星期六  为6
 	 *
 	 * @param date
 	 *            输入日期
@@ -257,7 +265,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 获取输入日期的当月第一天
+	 * 返回输入日期的当月第一天日期
 	 *
 	 *
 	 * @param date
@@ -274,7 +282,7 @@ public class DateHelper {
 
 	/**
 	 * 获得输入日期的当月最后一天
-	 *
+	 *  
 	 * @param date
 	 */
 	public static Date getLastDayOfMonth(Date date) {
@@ -295,7 +303,7 @@ public class DateHelper {
 		Date temp = DateHelper.getLastDayOfMonth(date);
 
 		try {
-			if (DateHelper.compare(temp, date) == 0) {
+			if (DateHelper.compare2(temp, date) == 0) {
 				flag = true;
 			}
 		} catch (SystemException e) {
@@ -319,8 +327,8 @@ public class DateHelper {
 		Calendar cd = Calendar.getInstance();
 		cd.setTime(date);
 		int year = cd.get(Calendar.YEAR);
-
-		if (year % 4 == 0 && year % 100 != 0 | year % 400 == 0) {
+		/** 1、 能被400 整除； 2、能被4整除但是不能被100整除**/
+		if ( (year % 4 == 0 && year % 100 != 0 )|| year % 400 == 0) {
 			return true;
 		} else {
 			return false;
@@ -328,7 +336,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 判断是否为指定format 日期格式字符串
+	 * 判断给定日期字符串是否为指定format 格式字符串所表述的形式
 	 *
 	 * @param dateStr
 	 * @param format
@@ -347,8 +355,11 @@ public class DateHelper {
 	}
 
 	/**
-	 * 根据整型数表示的年月日，生成日期类型格式
-	 *
+	 * 根据整型数表示的年月日，生成日期类型格式；举例如下</br>
+	 *  2017-11-01 </br>
+	 *  year=2017</br>
+	 *  month=11</br>
+	 *  day=01</br>
 	 * @param year
 	 *            年
 	 * @param month
@@ -365,8 +376,8 @@ public class DateHelper {
 	}
 
 	/**
-	 * 获取年周期对应日
-	 *
+	 * 
+	 *根据iyear参数，获取到根据date 实例的往前（-）或者往后（+）iYear年数。
 	 * @param date
 	 *            输入日期
 	 * @param iyear
@@ -374,7 +385,7 @@ public class DateHelper {
 	 * @return
 	 *
 	 */
-	public static Date getYearCycleOfDate(Date date, int iyear) {
+	public static Date plusYear(Date date, int iyear) {
 		Calendar cd = Calendar.getInstance();
 		cd.setTime(date);
 
@@ -459,7 +470,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 计算年龄
+	 * 计算在给定日期点calcDate 的年龄
 	 *
 	 * @param birthday
 	 *            生日日期
@@ -485,7 +496,7 @@ public class DateHelper {
 	}
 
 	/**
-	 * 从身份证中获取出生日期
+	 * 从身份证号码中获取出生日期
 	 *
 	 * @param idno
 	 *            身份证号码
@@ -494,6 +505,7 @@ public class DateHelper {
 	 */
 	public static String getBirthDayFromIDCard(String idno) {
 		Calendar cd = Calendar.getInstance();
+		//身份证号为15 位
 		if (idno.length() == 15) {
 			cd.set(Calendar.YEAR, Integer.valueOf("19" + idno.substring(6, 8))
 					.intValue());
@@ -502,6 +514,7 @@ public class DateHelper {
 			cd.set(Calendar.DAY_OF_MONTH,
 					Integer.valueOf(idno.substring(10, 12)).intValue());
 		} else if (idno.length() == 18) {
+			//身份证号为18位36073219940623
 			cd.set(Calendar.YEAR, Integer.valueOf(idno.substring(6, 10))
 					.intValue());
 			cd.set(Calendar.MONTH, Integer.valueOf(idno.substring(10, 12))
@@ -567,7 +580,8 @@ public class DateHelper {
 	}
 
 	/**
-	 * 將OBJECT類型轉換為Date
+	 * 将一个对象转换为date实例，参数只是支持date，以及String类型（yyyy-MM-dd 模式）；
+	 * 其他类型不支持
 	 *
 	 * @param date
 	 * @return
@@ -585,14 +599,16 @@ public class DateHelper {
 		return null;
 
 	}
-
+	/**
+	 * 计算给定生日日期字符串到现在的年龄
+	 * @param date 生日日期字符串
+	 * @return
+	 */
 	public static long getAgeByBirthday(String date) {
 
 		Date birthday = DateHelper.stringToDate(date, "yyyy-MM-dd");
-		long sec = new Date().getTime() - birthday.getTime();
-
-		long age = sec / (1000 * 60 * 60 * 24) / 365;
-
+		//long sec = new Date().getTime() - birthday.getTime();
+		long age=calcAge(birthday, new Date());  
 		return age;
 	}
 
@@ -606,6 +622,7 @@ public class DateHelper {
 	 * @return
 	 * @throws SystemException
 	 */
+	@Deprecated
 	public static int compare(Date date1, Date date2) throws SystemException {
 		if (date1 == null || date2 == null) {
 			throw new RuntimeException("date1 or date 2 not null.", null);
@@ -613,6 +630,19 @@ public class DateHelper {
 		return date1.compareTo(date2);
 	}
 
+	/**
+	 * 0 : equals<br>
+	 * -1 : less<br>
+	 * 1 : greater<br>
+	 * 比较 date1, date2 两个时间的前后顺序</br>
+	 * date1 == date2   0</br>
+	 * date1 < date2    -1 </br>
+	 * date1 > date2	1 </br>
+	 * @param date1
+	 * @param date2
+	 * @return
+	 * @throws SystemException
+	 */
 	public static int compare2(Date date1, Date date2) throws SystemException {
 		if (date1 == null && date2 == null) {
 			return 0;
@@ -647,19 +677,20 @@ public class DateHelper {
 		mon2 = DateHelper.GetMonthByDay(calc);
 		year2 = DateHelper.getYearOfDate(calc);
 
-		// 取得兩個月份數的差值
+		// 取得兩個日期值的差值
 		diffmons = (year2 - year1) * 12 + mon2 - mon1 + 1;
 
 		return diffmons;
 	}
 
 	/**
-	 * 用于佣金计算：根据当年天数计算月份
+	 * 用于佣金计算：根据入参calc参数计算他的月份;算法复杂
 	 *
 	 * @param calc
 	 * @return
 	 */
-	public static int GetMonthByDay(Date calc) {
+	@Deprecated
+	public static int GetMonthByDay2(Date calc) {
 
 		long day = DateHelper.getDayOfYear(calc);
 
@@ -684,9 +715,23 @@ public class DateHelper {
 
 		return month;
 	}
+	
+	/**
+	 * 用于佣金计算：根据入参calc参数计算他的月份
+	 *
+	 * @param calc
+	 * @return
+	 */
+	public static int GetMonthByDay(Date calc) {
+		 int month=0;
+		 Calendar calendar=Calendar.getInstance();
+		 calendar.setTime(calc);
+		 month=calendar.get(Calendar.MONTH)+1;
+		 return month;
+	}
 
 	/**
-	 * 當月: yyyy年M月d日 至 yyyy年M月d日
+	 * 返回从入参到入参当月月底的字符串: yyyy年M月d日 至 yyyy年M月d日
 	 *
 	 * @param dateStr
 	 *            format : yyyy-MM-dd
@@ -705,10 +750,15 @@ public class DateHelper {
 						DateHelper.DATE_FORMAT_CHINESE);
 		return result;
 	}
-
+	
+	/**
+	 *  
+	 * @param value
+	 * @return
+	 */
 	public static Timestamp getOracleTimestamp(Object value) {
 		try {
-			Class clz = value.getClass();
+			Class<? extends Object> clz = value.getClass();
 			Method method = clz.getMethod("timestampValue", null);
 			// method =clz.getMethod("timeValue", null); 时间类型
 			// method =clz.getMethod("dateValue", null); 日期类型
@@ -717,15 +767,23 @@ public class DateHelper {
 			return null;
 		}
 	}
-
-	public static java.sql.Date utilDateToSqlDate(java.util.Date utilDate) {
+	/**
+	 * 从java.util.Date 到 java.sql.Date 类型转换
+	 * @param utilDate
+	 * @return
+	 */
+	public static java.sql.Date utilDateToSqlDate(Date utilDate) {
 		if (utilDate == null) {
 			return null;
 		}
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		return sqlDate;
 	}
-
+	/**
+	 * 从java.sql.Date 到 java.util.Date 类型转换
+	 * @param utilDate
+	 * @return
+	 */
 	public static java.util.Date sqlDateToUtilDate(java.sql.Date sqlDate) {
 		if (sqlDate == null) {
 			return null;
@@ -773,8 +831,38 @@ public class DateHelper {
 		// DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		// Date date1 = df.parse(str1);
 		// Date date2 = df.parse(str2);
-		System.out.println(DateHelper.getYearOfDate(new Date()));
-		System.out.println(DateHelper.getCurrentDateTime());
+		//System.out.println(DateHelper.getYearOfDate(new Date()));
+		System.out.println(DateHelper.stringToDate("2017-10-10", DateHelper.DATE_FORMAT));
+		System.out.println(DateHelper.stringToDate("2017-10-15 23:30:45", DateHelper.DATE_TIME_FORMAT));
+		System.out.println(DateHelper.stringToDate("2017年11月10日", DateHelper.DATE_FORMAT_CHINESE));
+		System.out.println(DateHelper.stringToDate("2017年12月10日 23时30分45秒", DateHelper.DATE_TIME_FORMAT_CHINESE));
+		System.out.println(DateHelper.stringToDate("2017年10月25日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE));
+		System.out.println(dateToString(DateHelper.stringToDate("2017年10月26日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(dateToString(DateHelper.stringToDate("2017年10月26日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE),DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE));
+		System.out.println(getDayOfDate(stringToDate("2017-10-31", DateHelper.DATE_FORMAT)));
+		System.out.println(getDayOfYear(stringToDate("2017年12月31日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(getMonthOfDate(stringToDate("2017年12月31日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(getYearOfDate(stringToDate("2017年12月31日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(getWeekOfDate(stringToDate("2017年11月06日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(getFirstDayOfMonth(stringToDate("2017年11月06日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(getLastDayOfMonth(stringToDate("2017年12月06日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(isLastDayOfMonth(stringToDate("2017年12月31日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(isLeapYEAR(stringToDate("2012年12月31日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)));
+		System.out.println(isDateFormat(dateToString(stringToDate("2012年12月31日 10时30分45秒 星期三", DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE)),DateHelper.DATE_TIME_WEEK_FORMAT_CHINESE));
+		System.out.println(getDateByYMD(2017,11,01));
+		System.out.println(getMonthByMinusDate(DateHelper.stringToDate("2017-0-10", DateHelper.DATE_FORMAT),DateHelper.stringToDate("2017-10-10", DateHelper.DATE_FORMAT)));
+		System.out.println(getYearByMinusDate(DateHelper.stringToDate("1903-10-10", DateHelper.DATE_FORMAT),DateHelper.stringToDate("2017-10-10", DateHelper.DATE_FORMAT)));
+		System.out.println(getDayByMinusDate(DateHelper.stringToDate("2016-11-10", DateHelper.DATE_FORMAT),DateHelper.stringToDate("2017-10-10", DateHelper.DATE_FORMAT)));
+		System.out.println("360732199411211731".length());
+		System.out.println(getBirthDayFromIDCard("360732199411211731"));
+		System.out.println(getAgeByBirthday("1998-01-21"));
+		System.out.println(GetMonthByDay2(new Date())==GetMonthByDay(new Date()));
+		System.out.println(GetMonthByDay2(DateHelper.stringToDate("2017-10-10", DateHelper.DATE_FORMAT))==GetMonthByDay(DateHelper.stringToDate("2017-10-10", DateHelper.DATE_FORMAT)));
+		System.out.println(GetMonthByDay2(DateHelper.stringToDate("2017-12-10", DateHelper.DATE_FORMAT))==GetMonthByDay(DateHelper.stringToDate("2017-12-10", DateHelper.DATE_FORMAT)));
+		System.out.println(GetMonthByDay2(DateHelper.stringToDate("2017-12-31", DateHelper.DATE_FORMAT))==GetMonthByDay(DateHelper.stringToDate("2017-12-31", DateHelper.DATE_FORMAT)));
+		System.out.println(CalcEnterMon( stringToDate("2016-06-23"),new Date()));
+		System.out.println(getDurationMonth("2017-11-02"));
+		System.out.println(getOracleTimestamp(new Date()));
 		//
 		//
 		// System.out.println(DateHelper.addYear(new Date(), -1));
