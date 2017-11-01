@@ -264,7 +264,7 @@
 			</dependency>
 			<!-- MyBatis Dependency End -->
 
-			<!-- database Driver Begin -->
+			<!-- database Driver Begin  Mysql and Oracle -->
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>

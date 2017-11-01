@@ -23,13 +23,13 @@ import org.omg.CORBA.SystemException;
 public class DateHelper {
 	/** 2017-10-31 形式的日期格式 */
 	public static String DATE_FORMAT = "yyyy-MM-dd";
-	/* 2017-10-31 20:20:40 形式的日期,时间格式 */
+	/** 2017-10-31 20:20:40 形式的日期,时间格式 */
 	public static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	/* 2017年10月31日 形式的日期格式 */
+	/** 2017年10月31日 形式的日期格式 */
 	public static String DATE_FORMAT_CHINESE = "yyyy年M月d日";
-	/* 2017年10月31日 20时30分40秒 形式的日期时间格式 */
+	/** 2017年10月31日 20时30分40秒 形式的日期时间格式 */
 	public static String DATE_TIME_FORMAT_CHINESE = "yyyy年MM月dd日 HH时mm分ss秒";
-	/* 2017年10月31日 20时30分40秒 星期三 形式的日期时间 星期三 格式 */
+	/** 2017年10月31日 20时30分40秒 星期三 形式的日期时间 星期三 格式 */
 	public static String DATE_TIME_WEEK_FORMAT_CHINESE = "yyyy年MM月dd日 HH时mm分ss秒 E";
 
 	
@@ -813,9 +813,25 @@ public class DateHelper {
 	}
 
 	/**
+	 * 在数据库中自动获取到单表的Mapper命令空间
+	 * @param sqlId
+	 * @return
+	 */
+	public   String getStatement(String sqlId) {
+		String name = this.getClass().getName();
+		StringBuffer sb = new StringBuffer();
+		sb.append(name).append(".").append(sqlId);
+		String statement = sb.toString();
+
+		return statement;
+	}
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
+		DateHelper helper=new DateHelper();
+		String result=helper.getStatement("AAABSDFSDFSDA");
+		System.out.println(result);
 		// String temp = DateUtil.dateToString(getLastDayOfMonth(new Date()),
 		// / DateUtil.DATE_FORMAT_CHINESE);
 		// String s=DateUtil.dateToString(DateUtil.addDay(DateUtil.addYear(new
@@ -863,6 +879,10 @@ public class DateHelper {
 		System.out.println(CalcEnterMon( stringToDate("2016-06-23"),new Date()));
 		System.out.println(getDurationMonth("2017-11-02"));
 		System.out.println(getOracleTimestamp(new Date()));
+		System.out.println(String.format("%.2f", 25.464545));
+		System.out.println(String.format("%.2f", 25.895545));
+		System.out.println(String.format("%.2f", 25.436545));
+		System.out.println(scale45Prd(121.122655, 3));
 		//
 		//
 		// System.out.println(DateHelper.addYear(new Date(), -1));
@@ -898,7 +918,7 @@ public class DateHelper {
 		} else {
 			tmp = value.doubleValue() + 0.000005;
 		}
-
+		/** 将double 数据四舍五入 ，并保留 b 位小数位 **/
 		String str = String.format("%." + b + "f", tmp);
 
 		return Double.valueOf(str);
