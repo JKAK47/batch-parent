@@ -27,3 +27,7 @@ target/*
 
 .settings/*
 /*/.settings/*
+./*.iml
+*.iml
+./*/*.iml
+.idea/*

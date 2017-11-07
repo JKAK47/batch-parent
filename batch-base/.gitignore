@@ -27,4 +27,5 @@ target/*
 
 .settings/*
 /*/.settings/*
-/target/
+./*.iml
+./*/*.iml
