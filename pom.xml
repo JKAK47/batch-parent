@@ -309,6 +309,21 @@
   
   <build>
     <finalName>batch-parent</finalName>
+	  <!-- 项目范围级别 compiler 全局配置 -->
+	  <pluginManagement>
+		  <plugins>
+			  <plugin>
+				  <groupId>org.apache.maven.plugins</groupId>
+				  <artifactId>maven-compiler-plugin</artifactId>
+				  <version>3.5.1</version>
+				  <configuration>
+					  <!-- put your configurations here -->
+					  <source>1.8</source>
+					  <target>1.8</target>
+				  </configuration>
+			  </plugin>
+		  </plugins>
+	  </pluginManagement>
   </build>
   
   <modules>
@@ -317,5 +332,6 @@
   	<module>batch-demo</module>
     <module>batch-java8</module>
     <module>batch-base</module>
+
   </modules>
 </project>
