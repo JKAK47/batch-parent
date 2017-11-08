@@ -332,6 +332,7 @@
   	<module>batch-demo</module>
     <module>batch-java8</module>
     <module>batch-base</module>
-
+    <module>springmvcwebservice</module>
+    <module>springmvcwebapp</module>
   </modules>
 </project>
