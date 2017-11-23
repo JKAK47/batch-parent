@@ -26,25 +26,21 @@
 		    <dependency>
 		        <groupId>javax.servlet</groupId>
 		        <artifactId>jstl</artifactId>
-                 <version>1.2</version>
-		    </dependency>
+                 </dependency>
 		    <dependency>
 		        <groupId>javax.servlet</groupId>
 		        <artifactId>servlet-api</artifactId>
-                 <version>2.5</version>
-		        <scope>provided</scope>
+                 <scope>provided</scope>
 		    </dependency>
 		    <dependency>
 		        <groupId>javax.servlet.jsp</groupId>
 		        <artifactId>jsp-api</artifactId>
-                <version>2.1</version>
-		        <scope>provided</scope>
+                <scope>provided</scope>
 		    </dependency>
 		    <dependency>
 		        <groupId>taglibs</groupId>
 		        <artifactId>standard</artifactId>
-                 <version>1.1.2</version>
-		    </dependency>
+                 </dependency>
 		    <!-- Servlet end -->
 		    <!-- common begin -->
 		    <dependency>
@@ -56,6 +52,8 @@
 				<artifactId>commons-lang3</artifactId>
 			</dependency>
 			<!-- common end -->
+			
+			<!-- infobip start  -->
 			<dependency>
 		    <groupId>com.infobip</groupId>
 			    <artifactId>infobip-api-java-client</artifactId>
@@ -67,6 +65,12 @@
 			    <artifactId>unirest-java</artifactId>
 			    <version>1.4.5</version>
 			</dependency>	
+			<!-- infobip start  -->
+			<!-- log4j setting  -->
+			<dependency>
+				 <groupId>log4j</groupId>
+				 <artifactId>log4j</artifactId>
+			 </dependency>
   </dependencies>
   <build>
     <finalName>batch-common</finalName>
