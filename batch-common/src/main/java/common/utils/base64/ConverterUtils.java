@@ -9,12 +9,12 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 /**
- * batch-parent.common.utils
- * Created by PengRong on 2017/11/8.
+ * batch-parent.common.utils Created by PengRong on 2017/11/8.
  *
  * @author PengRong
  * @since 2017-11-08 9:25
  */
+@SuppressWarnings("restriction")
 public class ConverterUtils {
 
 	public ConverterUtils() {

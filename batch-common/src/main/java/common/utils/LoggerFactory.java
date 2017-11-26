@@ -1,10 +1,13 @@
 package common.utils;
 
+import java.net.URL;
+
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  * log4j 获取接口
- * 
+ *
  * @ClassName: LoggerFactory
  * @Description: TODO(这里用一句话描述这个类的作用)
  * @author PengRong
@@ -13,10 +16,15 @@ import org.apache.log4j.Logger;
  */
 public class LoggerFactory {
 
+	private static final Logger logger = Logger.getLogger(LoggerFactory.class);
+
 	private LoggerFactory() {
 	}
 
-	public Logger getLogger() {
-		return Logger.getLogger(LoggerFactory.class);
+	public static Logger getLogger() {
+		URL url = LoggerFactory.class.getResource("/log4j.properties");
+		PropertyConfigurator.configure(url.getPath());
+		return LoggerFactory.logger;
 	}
+
 }

@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.vincent</groupId>
@@ -7,6 +9,67 @@
   </parent>
   <artifactId>batch-base</artifactId>
   <properties>
-      
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <batch-common-version>0.0.1-SNAPSHOT</batch-common-version>
   </properties>
+  <dependencies>
+  			<dependency>
+  				<groupId>org.vincent</groupId>
+  				<artifactId>batch-common</artifactId>
+  				<version>${batch-common-version}</version>
+  			</dependency>
+  			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+			</dependency>
+			<!-- junit start -->
+		  	<dependency>
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>
+		      <scope>test</scope>
+		    </dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<scope>test</scope>
+			</dependency>		    
+			<!-- junit start -->
+		    	<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+			<dependency>
+			    <groupId>javax.mail</groupId>
+			    <artifactId>mail</artifactId>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.icegreen/greenmail -->
+			<dependency>
+			    <groupId>com.icegreen</groupId>
+			    <artifactId>greenmail</artifactId>
+			    <scope>test</scope>
+			</dependency>	
+  </dependencies>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<!-- 配置编译插件 -->
+				<groupId>org.apache.maven.plugins</groupId>
+				 <artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+  </build>
 </project>

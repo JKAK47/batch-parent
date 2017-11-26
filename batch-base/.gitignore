@@ -30,3 +30,4 @@ target/*
 ./*.iml
 ./*/*.iml
 /target/
+/logs/*
