@@ -69,7 +69,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             </dependency>
             <!-- poi 导出excel 文件 stop  -->
             
-            <!-- easyPoi start  -->
+            <!-- easyPoi start  
+            http://easypoi.mydoc.io/
+            http://rensanning.iteye.com/blog/1538591
+            -->
             <!-- https://mvnrepository.com/artifact/org.jeecg/easypoi-base -->
             <dependency>
                 <groupId>cn.afterturn</groupId>

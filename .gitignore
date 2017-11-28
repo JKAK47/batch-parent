@@ -31,3 +31,5 @@ target/*
 *.iml
 ./*/*.iml
 .idea/*
+bin/*
+/bin/*
