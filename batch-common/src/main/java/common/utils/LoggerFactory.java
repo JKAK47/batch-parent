@@ -2,11 +2,11 @@ package common.utils;
 
 import java.net.URL;
 
-import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.Logger;
 
 /**
- * log4j 获取接口
+ * log4j + slf4j 统一 日志接口
  *
  * @ClassName: LoggerFactory
  * @Description: TODO(这里用一句话描述这个类的作用)
@@ -16,7 +16,8 @@ import org.apache.log4j.PropertyConfigurator;
  */
 public class LoggerFactory {
 
-	private static final Logger logger = Logger.getLogger(LoggerFactory.class);
+	private static final Logger logger = org.slf4j.LoggerFactory
+			.getLogger(LoggerFactory.class);
 
 	private LoggerFactory() {
 	}

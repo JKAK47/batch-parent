@@ -23,6 +23,7 @@
 		<jdbc.driver.mysql.version>5.1.38</jdbc.driver.mysql.version>
 		<jdbc.driver.oracle.version>6</jdbc.driver.oracle.version>
 		<log4j.version>1.2.17</log4j.version>
+		<slf4j.version>1.7.25</slf4j.version>
 		<zookeeper.version>3.4.5</zookeeper.version>
 		<jedis.version>2.9.0</jedis.version>
 		<druid.version>1.0.24</druid.version>
@@ -35,13 +36,28 @@
 	-->
   	<dependencyManagement>
   		<dependencies>
-  		
-  			<!-- https://mvnrepository.com/artifact/log4j/log4j  1.2.17  log -->
+  			 <!-- log4j + slf4j   lib  start-->
+  			 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api  slf4j 接口实现-->
+			<dependency>
+			    <groupId>org.slf4j</groupId>
+			    <artifactId>slf4j-api</artifactId>
+			    <version>${slf4j.version}</version>
+			</dependency>
+  			 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12  slf4j 桥接 log4j1.x -->
+			<dependency>
+			    <groupId>org.slf4j</groupId>
+			    <artifactId>slf4j-log4j12</artifactId>
+			    <version>${slf4j.version}</version>
+			</dependency>
+  			 
+  			<!-- https://mvnrepository.com/artifact/log4j/log4j  1.2.17  log 具体实现-->
 			<dependency>
 				 <groupId>log4j</groupId>
 				 <artifactId>log4j</artifactId>
 				 <version>${log4j.version}</version>
 			</dependency>
+  			 <!-- log4j + slf4j   lib  stop -->
+  			 
             <!-- https://mvnrepository.com/artifact/joda-time/joda-time 
             java 中日期，时间API-->
             <dependency>
