@@ -36,16 +36,15 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendMail(String to, String subject, String htmlText)
-			throws EmailException {
+	public void sendMail(EmailSendBean bean) throws EmailException {
 		// TODO Auto-generated method stub
 		try {
 			// MimeMessage 表示一封邮件
 			MimeMessage email = this.sender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(email);
-			helper.setTo(to);
-			helper.setSubject(subject);
-			helper.setText(htmlText, true);
+			helper.setTo(bean.getReceiver());
+			helper.setSubject(bean.getSubject());
+			helper.setText(bean.getContent(), true);
 			this.sender.send(email);
 		} catch (Exception e) {
 			// TODO: handle exception

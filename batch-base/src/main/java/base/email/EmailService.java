@@ -14,18 +14,14 @@ import base.email.exception.EmailException;
 public interface EmailService {
 	/**
 	 *
-	 * @Title: sendMail </br>
-	 * @Description: TODO(发送邮件接口方法) </br>
-	 * @param to
-	 *            发送目的地址</br>
-	 * @param subject
-	 *            邮件主题</br>
-	 * @param htmlText
-	 *            邮件内容</br>
+	 * @Title: sendMail
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param emailSendBean
+	 *            邮件发送bean
 	 * @throws EmailException
-	 *             设定文件 </br>
-	 * @return void 返回类型 </br>
+	 *             设定文件
+	 * @return void 返回类型
+	 * @throws
 	 */
-	void sendMail(String to, String subject, String htmlText)
-			throws EmailException;
+	void sendMail(EmailSendBean emailSendBean) throws EmailException;
 }

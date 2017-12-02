@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import base.email.EmailSendBean;
 import base.email.EmailService;
 import base.email.exception.EmailException;
 
@@ -43,18 +44,20 @@ public class EmailServiceTest extends AbstractJUnit4SpringContextTests {
 
 	@Value("${email.password}")
 	private String userPassword;
+	@Value("${email.port}")
+	private int port;
 
 	@Before
 	public void setUp() throws Exception {
 		// 基于SMTP协议初始化greemmail 邮件服务器并创建用户最后启动邮件服务器
 		this.greenMail = new GreenMail(ServerSetup.SMTP);
 		this.greenMail.setUser(this.userName, this.userPassword);
-		this.greenMail.start();
+		this.greenMail.start();// 启动邮件服务器
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		this.greenMail.stop();// 关闭服务器
+		this.greenMail.stop();// 关闭邮件服务器
 	}
 
 	@Test
@@ -63,15 +66,19 @@ public class EmailServiceTest extends AbstractJUnit4SpringContextTests {
 		// 发送邮件，设置主题，内容
 		String subject = "pop music";
 		String htmltext = "<h1>Test H1</h1>";
-		this.emailService.sendMail("test2@pengrong.com", subject, htmltext);
+		EmailSendBean bean = new EmailSendBean();
+		bean.setSubject(subject);
+		bean.setContent(htmltext);
+		bean.setReceiver("test2@pengrong.com");
+		this.emailService.sendMail(bean);
 		// 接受一封邮件
 		this.greenMail.waitForIncomingEmail(2000, 1);
 		// 获取邮件内容
 		Message[] messages = this.greenMail.getReceivedMessages();
 		// 对比刚才发送邮件的字段内容
-		Assert.assertEquals(1, messages.length);
-		Assert.assertEquals(subject, messages[0].getSubject());
-		Assert.assertEquals(htmltext, GreenMailUtil.getBody(messages[0]).trim());
+		Assert.assertEquals(1, messages.length); // 邮件封数
+		Assert.assertEquals(subject, messages[0].getSubject()); // 邮件主题
+		Assert.assertEquals(htmltext, GreenMailUtil.getBody(messages[0]).trim());// 邮件正文
 
 	}
 
