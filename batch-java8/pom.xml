@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>batch-java8</artifactId>
-  <name>batch-java8</name>
+  <name>batch-java8  java8 功能测试验证模块</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

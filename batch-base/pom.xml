@@ -8,6 +8,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>batch-base</artifactId>
+  <name>batch-base 基础服务提供模块</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <batch-common-version>0.0.1-SNAPSHOT</batch-common-version>
@@ -17,6 +18,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   				<groupId>org.vincent</groupId>
   				<artifactId>batch-common</artifactId>
   				<version>${batch-common-version}</version>
+  				<type>jar</type>
   			</dependency>
   			<dependency>
 				<groupId>org.springframework</groupId>
@@ -99,9 +101,22 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
                 <type>pom</type>
             </dependency>  
             <!-- easyPoi stop  -->
+            
+            <!-- log slf4j 接口依赖 -->
+            <dependency>
+			    <groupId>org.slf4j</groupId>
+			    <artifactId>slf4j-api</artifactId>
+			</dependency>
+            <!-- log slf4j 接口依赖 -->
+            <!-- redis start -->
+             
+			            
+            <!-- redis stop -->
+           
   </dependencies>
   
   <build>
+  		<finalName>batch-base</finalName>
 		<plugins>
 			<plugin>
 				<!-- 配置编译插件 -->

@@ -9,7 +9,7 @@
   </parent>
   <artifactId>batch-db</artifactId>
   <packaging>jar</packaging>
-  <name>batch-db</name>
+  <name>batch-db 数据库访问模块</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

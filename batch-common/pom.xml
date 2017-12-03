@@ -8,8 +8,8 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>batch-common</artifactId>
-  <packaging>war</packaging>
-  <name>batch-common Maven Webapp</name>
+  <packaging>jar</packaging>
+  <name>batch-common  公共功能服务模块</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
@@ -23,7 +23,7 @@
 		<artifactId>spring-beans</artifactId>
 	</dependency>
 	 <!-- Servlet begin ,servlet runtime  -->
-		    <dependency>
+		   <!--  <dependency>
 		        <groupId>javax.servlet</groupId>
 		        <artifactId>jstl</artifactId>
                  </dependency>
@@ -40,7 +40,7 @@
 		    <dependency>
 		        <groupId>taglibs</groupId>
 		        <artifactId>standard</artifactId>
-                 </dependency>
+                 </dependency> -->
 		    <!-- Servlet end -->
 		    <!-- common begin -->
 		    <dependency>
@@ -83,8 +83,7 @@
 				 <groupId>log4j</groupId>
 				 <artifactId>log4j</artifactId>
 			</dependency>
-  			 <!-- log4j + slf4j   lib  stop -->
-  			 
+  			 <!-- log4j + slf4j   lib  stop -->		 
   </dependencies>
   <build>
     <finalName>batch-common</finalName>

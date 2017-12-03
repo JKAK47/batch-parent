@@ -7,7 +7,7 @@
   <packaging>pom</packaging>
   <version>0.0.1-SNAPSHOT</version>
   
-  <name>batch-parent Maven Webapp</name>
+  <name>batch-parent Maven  多模块项目，管理模块</name>
   <url>http://maven.apache.org</url>
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -366,6 +366,23 @@
 	  </pluginManagement>
   </build>
   
+  <!-- 配置 阿里公共maven 仓库。 -->
+  <repositories>  
+        <repository>  
+            <id>nexus-alimaven</id>  
+            <name>aliyun maven</name>  
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>  
+            <releases>  
+                <enabled>true</enabled>  
+            </releases>  
+            <snapshots>  
+                <enabled>false</enabled>  
+                <!-- 检查频率 -->
+                <updatePolicy>interval:60</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>  
+        </repository>  
+</repositories>  
   <modules>
   	<module>batch-common</module>
   	<module>batch-db</module>
