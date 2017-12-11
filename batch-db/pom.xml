@@ -23,7 +23,7 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
-     <!-- 报表输出 依赖 start  -->
+     <!-- 报表输出 依赖 start  Excel  -->
     <dependency>
         <groupId>org.apache.poi</groupId>
         <artifactId>poi</artifactId>

@@ -16,11 +16,11 @@
 		<!-- others -->
 		<org.springframework.version>4.3.2.RELEASE</org.springframework.version>
 		<org.springframework.security.version>3.2.4.RELEASE</org.springframework.security.version>
-		<mybatis.version>3.4.1</mybatis.version>
+		<mybatis.version>3.4.4</mybatis.version>
 		<mybatis.spring.version>1.3.0</mybatis.spring.version>
 		<dubbo.version>2.5.4</dubbo.version>
 		<junit.version>4.12</junit.version>
-		<jdbc.driver.mysql.version>5.1.38</jdbc.driver.mysql.version>
+		<jdbc.driver.mysql.version>5.1.42</jdbc.driver.mysql.version>
 		<jdbc.driver.oracle.version>6</jdbc.driver.oracle.version>
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.25</slf4j.version>
