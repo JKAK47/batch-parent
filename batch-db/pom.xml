@@ -14,12 +14,16 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <!--  db 数据源模块依赖 -->
   <dependencies>
+    <!--单元测试 -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+     <!-- 报表输出 依赖 start  Excel  -->
     <dependency>
         <groupId>org.apache.poi</groupId>
         <artifactId>poi</artifactId>
@@ -30,5 +34,29 @@
         <artifactId>poi-ooxml</artifactId>
         <version>3.10-FINAL</version>
     </dependency>
+     <!-- 报表输出 依赖 stop  -->
+     
+    <!-- mybatis 依赖 start  -->
+    <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis-spring</artifactId>
+    </dependency>
+    <!-- mybatis 依赖 stop  -->
+    <!-- mysql  依赖 start  -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <!-- mysql  依赖 stop   -->
+    
+    <!-- oracle  依赖 start   -->
+    <!-- oracle  依赖 stop   -->
+    
+    <!-- MongoDB  依赖 start   -->
+    <!-- MongoDB  依赖 stop   -->
   </dependencies>
 </project>
