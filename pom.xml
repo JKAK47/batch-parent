@@ -381,6 +381,7 @@
                 <updatePolicy>interval:60</updatePolicy>
                 <checksumPolicy>warn</checksumPolicy>
             </snapshots>  
+            <layout>default</layout>
         </repository>  
 </repositories>  
   <modules>
