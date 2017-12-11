@@ -23,6 +23,7 @@ public class LoggerFactory {
 	}
 
 	public static Logger getLogger() {
+		// 读取batch-common 模块下main/java 目录下resources 的log4j.properties文件; 注意使用的文件路径：/log4j.properties
 		URL url = LoggerFactory.class.getResource("/log4j.properties");
 		PropertyConfigurator.configure(url.getPath());
 		return LoggerFactory.logger;

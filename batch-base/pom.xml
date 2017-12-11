@@ -123,6 +123,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				<groupId>org.apache.maven.plugins</groupId>
 				 <artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<!-- 配置源码插件 -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
 		</plugins>
   </build>
 </project>
