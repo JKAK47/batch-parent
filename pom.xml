@@ -21,7 +21,7 @@
 		<dubbo.version>2.5.4</dubbo.version>
 		<junit.version>4.12</junit.version>
 		<jdbc.driver.mysql.version>5.1.42</jdbc.driver.mysql.version>
-		<jdbc.driver.oracle.version>6</jdbc.driver.oracle.version>
+		<jdbc.driver.oracle.version>11.1.0.7.0</jdbc.driver.oracle.version>
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<zookeeper.version>3.4.5</zookeeper.version>
@@ -306,8 +306,8 @@
 			    <version>${jdbc.driver.oracle.version}</version>
 			</dependency> -->
 			<dependency>
-				<groupId>ojdbc</groupId>
-				<artifactId>ojdbc</artifactId>
+				<groupId>com.oracle</groupId>
+				<artifactId>ojdbc6</artifactId>
 				<version>${jdbc.driver.oracle.version}</version>
 			</dependency>			
 			<!-- DataBase Driver End -->

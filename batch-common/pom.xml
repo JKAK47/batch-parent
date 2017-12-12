@@ -108,7 +108,7 @@
     					<goal>jar-no-fork</goal>
     				</goals>
     				<configuration>
-    					<detail>true</detail>
+
     				</configuration>
     			</execution>
     		</executions>
