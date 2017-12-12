@@ -1,9 +1,9 @@
 package common.utils;
 
-import java.net.URL;
-
 import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
+
+import java.net.URL;
 
 /**
  * log4j + slf4j 统一 日志接口

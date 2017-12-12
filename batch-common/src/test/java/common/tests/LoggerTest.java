@@ -1,13 +1,12 @@
 package common.tests;
 
-import java.util.Date;
-
+import common.utils.LoggerFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 
-import common.utils.LoggerFactory;
+import java.util.Date;
 
 /**
  * 对batch-common 模块的日志服务进行测试
@@ -35,7 +34,6 @@ public class LoggerTest {
 	 * 
 	 * @Title: test
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param 设定文件
 	 * @return void 返回类型
 	 * @throws
 	 */

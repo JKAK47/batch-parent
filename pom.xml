@@ -30,13 +30,24 @@
 		<servlet.version>3.1-b09</servlet.version>
 		<hydra.version>1.0-RELEASES</hydra.version>
 	  	<druid.version>1.1.5</druid.version>
+	  	<batch-common>0.0.1-SNAPSHOT</batch-common>
 	</properties>
 	
 	<!-- 主Pom 中通过 dependencyManagement 将子模块可能会用到的jar包 依赖先 引入进来
 		子模块需要哪个jar 只需要讲对应的groupId , artifactId 元素引入即可，不用version。子模块可以选择性的继承
 	-->
   	<dependencyManagement>
+
   		<dependencies>
+			<!-- 本项目依赖 -->
+			<dependency>
+				<groupId>org.vincent</groupId>
+				<artifactId>batch-common</artifactId>
+				<version>${batch-common}</version>
+			</dependency>
+
+			<!-- 本项目依赖 -->
+
   			 <!-- log4j + slf4j   lib  start-->
   			 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api  slf4j 接口实现-->
 			<dependency>

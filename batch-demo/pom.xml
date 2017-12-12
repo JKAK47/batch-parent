@@ -15,6 +15,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+      <dependency>
+          <groupId>org.vincent</groupId>
+          <artifactId>batch-common</artifactId>
+      </dependency>
     <!-- Spring batch begin -->
     <dependency>
       <groupId>junit</groupId>
@@ -38,7 +42,7 @@
         <artifactId>spring-batch-test</artifactId>  
         <scope>test</scope>  
     </dependency> 
-    <!-- Spring batch begin -->
+    <!-- Spring batch stop -->
     
     <!--  Spring begin -->
     <dependency>

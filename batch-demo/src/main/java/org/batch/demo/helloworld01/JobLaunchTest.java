@@ -1,5 +1,7 @@
 package org.batch.demo.helloworld01;
 
+import common.utils.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;
@@ -19,19 +21,21 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class JobLaunchTest {
 	public static void main(String[] args) {
+		Logger logger= LoggerFactory.getLogger();
 		@SuppressWarnings("resource")
-		ApplicationContext context = new ClassPathXmlApplicationContext("helloworld01/application.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("helloworld01/spring/application.xml");
 		JobLauncher launcher = (JobLauncher) context.getBean("jobLauncher");
 		Job job = (Job) context.getBean("helloWorldJob");
-
 		try {
+			logger.info("start launcher");
 			launcher.run(job, new JobParameters());
+			logger.info("stop launcher");
 		} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
 				| JobParametersInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		logger.debug("debug");
 	}
 
 }
