@@ -26,7 +26,6 @@
 		<slf4j.version>1.7.25</slf4j.version>
 		<zookeeper.version>3.4.5</zookeeper.version>
 		<jedis.version>2.9.0</jedis.version>
-
 		<servlet.version>3.1-b09</servlet.version>
 		<hydra.version>1.0-RELEASES</hydra.version>
 	  	<druid.version>1.1.5</druid.version>
