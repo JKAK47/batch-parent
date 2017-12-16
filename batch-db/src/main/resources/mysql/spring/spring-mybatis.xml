@@ -60,5 +60,12 @@
 	<!-- 声明使用注解式事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<!--======= 事务配置 End =================== -->
-
+	
+	<!-- Mysql Config Setting  -->
+	<bean id="mysqlConfig" class="org.batch.db.mysql.MysqlConfig">
+		<property name="driver" value="${mysql.driver}" />
+		<property name="url" value="${mysql.url}" />
+		<property name="username" value="${mysql.user}" />
+		<property name="password" value="${mysql.password}" />
+	</bean>
 </beans>

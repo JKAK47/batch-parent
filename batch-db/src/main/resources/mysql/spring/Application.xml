@@ -23,7 +23,7 @@
 	<!-- 配置spring-batch
     <import resource="spring-batch.xml"/>
     <import resource="dubbo-consumer.xml"/> -->
-	<!-- 获取数据库配置属性-->
+	<!-- 获取数据库配置属性， 这种方式配置的属性 不能再代码中获取。-->
     <context:property-placeholder location="mysql/mysql-db.properties"/>
 
 </beans>
