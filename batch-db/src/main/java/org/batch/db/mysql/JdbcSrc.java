@@ -3,6 +3,7 @@ package org.batch.db.mysql;
 import common.utils.LoggerFactory;
 import org.batch.db.mysql.bean.Product;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -26,11 +27,12 @@ import java.sql.Statement;
 
 public class JdbcSrc {
 
-
-
+    @Value("${mysql.driver}")
+    private static String size;
     public static void main(String[] args) {
         Logger logger=LoggerFactory.getLogger();
         String path="/mysql/spring/Application.xml" ;
+        System.out.print(size);
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
