@@ -13,56 +13,60 @@ package org.batch.db.mysql.bean;
  */
 
 public class Product {
-		private String productId;
-		private int vendId;
-		private String productName;
-		private double productPrice;
-		private String productDsc;
+		private String prod_id;
+		private int vend_id;
+		private String prod_name;
+		private double prod_price;
+		private String prod_desc;
 
+		public int getVend_id() {
+				return vend_id;
+		}
+
+		public void setVend_id(int vend_id) {
+				this.vend_id = vend_id;
+		}
+
+		@Override
 		public String toString() {
-				return "Product [productId=" + this.productId + ", vend_id="
-								+ this.vendId + ", productName=" + this.productName
-								+ ", productPrice=" + this.productPrice + ", productDsc="
-								+ this.productDsc + "]";
+				return "Product{" +
+								"prod_id='" + prod_id + '\'' +
+								", vend_id='" + vend_id + '\'' +
+								", prod_name='" + prod_name + '\'' +
+								", prod_price=" + prod_price +
+								", prod_desc='" + prod_desc + '\'' +
+								'}';
 		}
 
-		public String getProductId() {
-				return this.productId;
+		public String getProd_id() {
+				return this.prod_id;
 		}
 
-		public void setProductId(String productId) {
-				this.productId = productId;
+		public void setProd_id(String prod_id) {
+				this.prod_id = prod_id;
 		}
 
-		public int getVendId() {
-				return this.vendId;
+		public String getProd_name() {
+				return this.prod_name;
 		}
 
-		public void setVendId(int vendId) {
-				this.vendId = vendId;
+		public void setProd_name(String prod_name) {
+				this.prod_name = prod_name;
 		}
 
-		public String getProductName() {
-				return this.productName;
+		public double getProd_price() {
+				return this.prod_price;
 		}
 
-		public void setProductName(String productName) {
-				this.productName = productName;
+		public void setProd_price(double prod_price) {
+				this.prod_price = prod_price;
 		}
 
-		public double getProductPrice() {
-				return this.productPrice;
+		public String getProd_desc() {
+				return this.prod_desc;
 		}
 
-		public void setProductPrice(double productPrice) {
-				this.productPrice = productPrice;
-		}
-
-		public String getProductDsc() {
-				return this.productDsc;
-		}
-
-		public void setProductDsc(String productDsc) {
-				this.productDsc = productDsc;
+		public void setProd_desc(String prod_desc) {
+				this.prod_desc = prod_desc;
 		}
 }

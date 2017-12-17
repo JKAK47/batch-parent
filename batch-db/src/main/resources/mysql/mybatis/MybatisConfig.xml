@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- Mybatis 方式 访问数据库  -->
+    <!-- mybatis 配置信息 必须按照这个顺序。1、加载属性文件 通过resource属性从外部加载属性文件-->
+    <properties resource="mysql/mysql-db.properties">
+        <!-- properties 中还可以加载自定义配置的属性名和 属性值-->
+        <property name="name" value="Vincent"/>
+    </properties>
+    <!-- 2、全局配置参数，  -->
+    <settings>
+        <!-- 配置log4j 日志记录器 -->
+        <setting name="logImpl" value="LOG4J"/>
+        <!-- 开启二级缓存开关 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 开启延迟加载 -->
+        <setting name="aggressiveLazyLoading" value="true"/>
+    </settings>
+    <!-- 3、给类设置别名, 在mapper文件中可以使用这个别名，就不用使用那么长的类名了。 -->
+    <typeAliases>
+        <typeAlias type="org.batch.db.mysql.bean.Student"
+                   alias="Student"/>
+        <typeAlias type="org.batch.db.mysql.bean.Vendor"
+                   alias="Vendor"/>
+        <typeAlias type="org.batch.db.mysql.bean.Product"
+                   alias="Product"/>
+    </typeAliases>
+    <!--  4、 环境配置 -->
+    <environments default="development">
+        <environment id="development">
+            <!--  事务管理 有两种事务管理类型：JDBC 和 MANAGED-->
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息 ,没有用数据库连接池-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}" />
+                <property name="url" value="${mysql.url}" />
+                <property name="username" value="${mysql.user}" />
+                <property name="password" value="${mysql.password}" />
+                <!-- 设置事务锁的级别，以Connection 中设置的常量为取值-->
+                <property name="defaultTransactionIsolationLevel" value="8"/>
+                <!-- 被强制返回之前,池中连接被检查的时间 -->
+                <property name="poolMaximumCheckoutTime" value="20000" />
+                <property name="poolTimeToWait" value="500" />
+                <property name="poolPingEnabled" value="true" />
+                <property name="poolPingQuery" value="SELECT 1" />
+                <property name="poolPingConnectionsNotUsedFor" value="20000" />
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 5、 加载映射文件 -->
+    <mappers>
+        <!-- 注册SQL映射信息文件，Mapper.xml文件，   Mapper.xml位于src/main/resources/mybatis/mappers
+        这个包(该目录src/main/resources/为classpath目录)下，所以resource写成mybatis/mappers/Student.xml-->
+        <mapper resource="mysql/mybatis/mappers/Student.xml"/>
+
+    </mappers>
+</configuration>
+
+

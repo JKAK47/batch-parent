@@ -3,6 +3,9 @@ package org.batch.db.mysql;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mysql Setting 配置信息，通过Spring 注入 获取数据库配置信息
+ */
 @Component("mysqlConfig")
 public class MysqlConfig {
 

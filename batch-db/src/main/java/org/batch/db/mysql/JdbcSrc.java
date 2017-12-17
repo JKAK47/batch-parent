@@ -1,24 +1,26 @@
 package org.batch.db.mysql;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.sql.DataSource;
-
+import common.utils.LoggerFactory;
 import org.batch.db.mysql.bean.Product;
 import org.slf4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import common.utils.LoggerFactory;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Package: org.batch.db.excel Description：
- * 使用原始方式jdbc方式创建jdbc应用访问单表（基于mysql+mybatis）;只需要DataSource 对象。 Author: PengRong
- * Date: Created in 2017/12/13 0:40 Company: PLCC Copyright: Copyright (c) 2017
- * Version: 1.0 Modified By: Created by PengRong on 2017/12/13.
+ * 使用jdbc原始方式创建jdbc应用访问单表（基于mysql+mybatis）;只需要DataSource 对象。
+ * Author: PengRong
+ * Date: Created in 2017/12/13 0:40
+ * Company: PLCC
+ * Copyright: Copyright (c) 2017
+ * Version: 1.0
+ * Modified By: Created by PengRong on 2017/12/13.
  */
 
 public class JdbcSrc {
@@ -41,17 +43,17 @@ public class JdbcSrc {
 		try {
 			// 第三步 从DataSource实例获取一个sql 连接
 			connection = dataSource.getConnection();
-			// 第四步 获取Statement实例，用于执行Sql语句
+			// 第四步 获取Statement实例，用于执行 Sql 语句
 			statement = connection.createStatement();
 			// 第五步 通过Statement实例执行sql语句，获取查询结果
 			resultSet = statement.executeQuery("select * from products ");
 			// 第六步 从结果集中获取数据
 			while (resultSet.next()) {
-				product.setProductId(resultSet.getString("prod_id"));
-				product.setProductDsc(resultSet.getString("prod_desc"));
-				product.setProductName(resultSet.getString("prod_name"));
-				product.setProductPrice(resultSet.getDouble("prod_price"));
-				product.setVendId(resultSet.getInt("vend_id"));
+				product.setProd_id(resultSet.getString("prod_id"));
+				product.setProd_desc(resultSet.getString("prod_desc"));
+				product.setProd_name(resultSet.getString("prod_name"));
+				product.setProd_price(resultSet.getDouble("prod_price"));
+				product.setVend_id(resultSet.getInt("vend_id"));
 				System.out.println(product.toString());
 			}
 			logger.info("stop");
@@ -68,7 +70,6 @@ public class JdbcSrc {
 					e.printStackTrace();
 				}
 			}
-
 			// 关闭sql语句执行实例statement
 			if (statement != null) {
 				try {
