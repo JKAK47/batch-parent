@@ -1,16 +1,16 @@
 package common.utils.base64;
 
-import java.io.UnsupportedEncodingException;
-
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.StringUtils;
 
+import java.io.UnsupportedEncodingException;
+
 /**
- * batch-parent.common.utils
- * Created by PengRong on 2017/11/8.
+ * batch-parent.common.utils  </br>
+ * Created by PengRong on 2017/11/8. </br>
  *
- * @author PengRong
- * @since 2017-11-08 9:25
+ * @author PengRong</br>
+ * @since 2017-11-08 9:25</br>
  */
 public class ApacheBase64Utli {
 
@@ -19,26 +19,26 @@ public class ApacheBase64Utli {
 	}
 
 	/**
-	 * Apache 的Base64 编码方法
+	 * Apache 的Base64 编码方法，首先将字符串用指定字符串解码为一个字节数组，然后通过Base64 编码为一个字符串
 	 *
 	 * @Title: Base64Encode
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param text
 	 *            需要Base64编码的字符串
 	 * @param charsetName
-	 *            字符串编码为字节数组的编码字符集, 默认字符集方案为UTF-8
+	 *            字符串解码为字节数组时选取编码字符集, 默认解码字符集方案为UTF-8
 	 * @return String 返回base64编码后的字符串
 	 * @throws
 	 */
 	public static String Base64Encode(String text, String charsetName) {
-		Base64 base64 = new Base64();
+
 		String result = null;
 		if (!StringUtils.isEmpty(text)) {
 			try {
 				if (!StringUtils.isEmpty(charsetName)) {
-					result = base64.encodeToString(text.getBytes(charsetName));
+					result = Base64Encode(text.getBytes(charsetName));
 				} else {
-					result = base64.encodeToString(text.getBytes("utf-8"));
+					result = Base64Encode(text.getBytes("utf-8"));
 				}
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
@@ -50,6 +50,21 @@ public class ApacheBase64Utli {
 
 	/**
 	 *
+	 * @param bytes 需要Base64编码的字节数组 </br>
+	 * @return
+	 */
+	public  static  String Base64Encode(byte[] bytes){
+		Base64 base64 = new Base64();
+		if (bytes!=null){
+			return  base64.encodeToString(bytes);
+		}else {
+			return null;
+		}
+	}
+
+	/**
+	 *	Apache 的Base64 编码方法，将Base64编码的字符串解码为字节数组，然后用指定的字符集将字节数组编码为字符串</br>
+	 *	所以必须知道Base64 编码的字符串 原来是用什么字符集解码的为字节数组；默认编码字符集为 UTF-8
 	 * @param text
 	 * @param charsetName
 	 * @return

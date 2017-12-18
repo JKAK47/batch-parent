@@ -27,6 +27,10 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+      </dependency>
      <!-- 报表输出 依赖 start  Excel  -->
     <dependency>
         <groupId>org.apache.poi</groupId>
