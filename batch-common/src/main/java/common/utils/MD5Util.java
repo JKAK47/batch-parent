@@ -150,11 +150,22 @@ public class MD5Util {
 
 
 
-    public  static  void main(String[] args){
+    public  static  void main(String[] args) throws Exception {
         String md5=  getMD5String("aasdfsdf" );
         System.out.println(md5);
         System.out.println(md5.length());//32
         System.out.println(md5.length()/2);//16
+        long begin = System.currentTimeMillis();
+        File big = new File("c:/keystoreOutput2.txt");
+        md5 = getFileMD5String(big);
+        FileInputStream in = new FileInputStream(big);
+        String md52=getFileMD5String(in);
+
+        long end = System.currentTimeMillis();
+        System.err.println("md5:" + "384ba3f72ec5658f27533ca922dac5cc");
+        System.out.println("md5 :" + md5);
+        System.out.println("md52:" + md5);
+        System.out.println("time:" + ((end - begin) / 1000) + "s");
     }
 
 
