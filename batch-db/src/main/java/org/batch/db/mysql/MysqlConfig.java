@@ -16,8 +16,8 @@ public class MysqlConfig {
 	/**
 	 * Spring 注入属性可以注入数字
 	 */
-	@Value("${mysql.jdbc.initPoolSize}")
-	private int size;
+	@Value("${mysql.mysql.jdbc.initPoolSize}")
+	private int initPoolSize;
 
 	@Override
 	public String toString() {
@@ -27,7 +27,6 @@ public class MysqlConfig {
 	}
 
 	public MysqlConfig() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getDriver() {

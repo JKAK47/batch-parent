@@ -30,7 +30,8 @@
     <environments default="development">
         <environment id="development">
             <!--  事务管理 有两种事务管理类型：JDBC 和 MANAGED-->
-            <transactionManager type="JDBC" />
+            <transactionManager type="JDBC" >
+            </transactionManager>
             <!-- 配置数据库连接信息 ,没有用数据库连接池-->
             <dataSource type="POOLED">
                 <property name="driver" value="${mysql.driver}" />
@@ -52,7 +53,7 @@
     <mappers>
         <!-- 注册SQL映射信息文件，Mapper.xml文件，   Mapper.xml位于src/main/resources/mybatis/mappers
         这个包(该目录src/main/resources/为classpath目录)下，所以resource写成mybatis/mappers/Student.xml-->
-        <mapper resource="mysql/mybatis/mappers/Student.xml"/>
+        <mapper resource="mysql/mybatis/native/Student.xml"/>
 
     </mappers>
 </configuration>

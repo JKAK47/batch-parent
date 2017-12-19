@@ -6,12 +6,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+
+
 /**
  * batch-parent.org.batch.db.mysql.mybatis <br/>
  * Created by PengRong on 2017/12/18. <br/>
  *
  * @author PengRong <br/>
- * @Description 基于Spring-test 的测试类写法
+ * @Description 基于Spring-test 的测试类写法模版
  * @ClassName: ${CLASS}
  * @since 2017-12-18 16:18 <br/>
  */

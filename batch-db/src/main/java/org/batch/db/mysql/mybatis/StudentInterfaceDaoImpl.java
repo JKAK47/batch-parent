@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * Package: org.batch.db.mysql.mybatis <br/>
- * Description： IStudentOperation 这个定义了操作Student 单表增删改查 的接口方法<br/>
+ * Description： IStudentOperation 这个定义了操作Student 单表 增删改查 的接口方法<br/>
  * Author: PengRong <br/>
  * Date: Created in 2017/12/17 23:48 <br/>
  * Company: PLCC <br/>
@@ -46,7 +46,7 @@ public class StudentInterfaceDaoImpl implements  BaseDao,IStudentOperation {
 		public void closeSession() {
 				this.closeSession(this.Localsession);
 		}
-		// 通关id和匹配到Student.xml中对应的select标签执行单表查询;没用通关Mapper接口
+		// 通关id和匹配到Student.xml中对应的select标签执行单表查询;没用Mapper接口获取数据
 		public Student queryBySql(String sql, int id) {
 				Student result = null;
 				if (!StringUtils.isNullOrEmpty(sql)) {
@@ -90,6 +90,7 @@ public class StudentInterfaceDaoImpl implements  BaseDao,IStudentOperation {
 								.getMapper(IStudentOperation.class);
 				if (Objects.nonNull(student)) {
 						operation.insertStudent(student);
+						Localsession.commit();
 				} else {
 						//
 				}
@@ -104,6 +105,7 @@ public class StudentInterfaceDaoImpl implements  BaseDao,IStudentOperation {
 				IStudentOperation operation = this.Localsession
 								.getMapper(IStudentOperation.class);
 				operation.updateStudent(student);
+				Localsession.commit();
 		}
 
 		/**
@@ -115,6 +117,7 @@ public class StudentInterfaceDaoImpl implements  BaseDao,IStudentOperation {
 				IStudentOperation operation = this.Localsession
 								.getMapper(IStudentOperation.class);
 				operation.deleteStudent(id);
+				Localsession.commit();
 		}
 
 		@Override

@@ -24,14 +24,19 @@ import java.io.InputStream;
 public interface BaseDao {
 		// 公共的日志记录器和配置文件配置在接口中。
 		public Logger logger = LoggerFactory.getLogger();;
-		public String MybatisConfig = "mysql/mybatis/MybatisConfig.xml";
+		public String MybatisConfig = "mysql/mybatis/native/MybatisConfig.xml";
 
 		// 打开一个Session
 		default public SqlSession getSession() throws IOException {
 				InputStream inputStream;
 				inputStream = Resources.getResourceAsStream(BaseDao.MybatisConfig);
-
-				return new SqlSessionFactoryBuilder().build(inputStream).openSession();
+				/**
+				 *
+				 * openSession 方法 autoCommit 参数=表示是否自动提交，还是手动提交insert，update，delete 操作。
+				 * false 表示 手动操作控制
+				 * true 表示 自动提交。
+				 */
+				return new SqlSessionFactoryBuilder().build(inputStream).openSession(true);
 		}
 
 		// 关闭一个Session

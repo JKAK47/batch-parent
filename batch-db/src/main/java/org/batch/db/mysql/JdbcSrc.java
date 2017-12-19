@@ -27,7 +27,7 @@ public class JdbcSrc {
 
 	public static void main(String[] args) {
 		Logger logger = LoggerFactory.getLogger();
-		String path = "/mysql/spring/Application.xml";
+		String path = "/mysql/jdbc/Application.xml";
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;

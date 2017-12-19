@@ -43,6 +43,6 @@
         SQL 语句 
                      定义查询结果和POJO的映射关系              -->
     <mappers>
-    
+        <mapper resource="mysql/mybatis/mappers/StudentMapper.xml"/>
     </mappers>
 </configuration>

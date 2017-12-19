@@ -33,12 +33,11 @@
 	</bean>
 	<!-- 将数据源映射到sqlSessionFactory中 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<!-- mybatis 配置文件注入到spring; 不能注入，为啥呢？  -->
-	<!--	<property name="configLocation" value="classpath:mysql/mybatis/mybatis-config.xml" />-->
+		<!-- mybatis 配置文件注入到spring  -->
 		<property name="mapperLocations">
 			<array>
 				<!-- <value>classpath:com/generated/lifepro/**/*.xml</value> -->
-				<value>classpath*:mysql/mybatis/mappers/**/*.xml</value>
+			<!--	<value>classpath*:mysql/mybatis/mappers/**/*.xml</value>-->
 				<!--<value>classpath*:mysql/mybatis/mapper/**/*.xml</value>-->
 			</array>
 		</property>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
 例如namespace="org.vincent.mapping.Mapper"就是org.vincent.mapping(包名)+Mapper(Mapper.xml文件去除后缀);
-但是如有需要通过定义一个接口方法定义访问数据库接口方法，那么namespace必须取接口全类名。
+但是如有需要通过定义一个接口方法定义访问数据库接口方法，那么namespace(命令空间)必须取接口全类名。
  -->
 <mapper namespace="org.batch.db.mysql.mybatis.model.IStudentOperation">
     <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getStudent，id属性值必须是唯一的，不能够重复;
