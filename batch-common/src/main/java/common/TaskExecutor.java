@@ -16,6 +16,6 @@ import java.util.concurrent.Future;
  */
 public interface TaskExecutor {
 		void  addTask(Runnable task);
-		Future<?>  addTask(Callable task);
+		Future<?>  addTask(Callable<?> task);
 
 }

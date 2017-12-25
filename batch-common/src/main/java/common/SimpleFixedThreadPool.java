@@ -32,9 +32,11 @@ public class SimpleFixedThreadPool implements  TaskExecutor{
 			executor.execute(task);
 		}
 
+
 		@Override
-		public Future addTask(Callable task) {
-				return null;
+		public Future<?> addTask(Callable<?> task) {
+			Future<?> future=executor.submit(task);
+				return future;
 		}
 
 		/**
