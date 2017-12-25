@@ -12,17 +12,87 @@
     <packaging>jar</packaging>
     <name>batch-common 公共功能服务模块</name>
     <url>http://maven.apache.org</url>
+    <build>
+        <finalName>batch-common</finalName>
+
+        <plugins>
+            <!-- 配置一个生产源码 jar 包的 插件，绑定到verify 阶段 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <!-- 这里是插件全局配置 -->
+                <configuration>
+                    <attach>true</attach>
+                    <!-- 配置是否将配置文件去除（true）,false 不去除 -->
+                    <excludeResources>true</excludeResources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-source</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                        <configuration>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 配置一个可以执行ant 任务的maven 插件 ;为什么不能配置呢？-->
+            <!-- <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>ant-validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin> -->
+        </plugins>
+    </build>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+        <!-- Test begin-->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <!-- Test stop-->
+        <!-- Spring start-->
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- Spring stop-->
+
         <!-- Servlet begin ,servlet runtime  -->
         <!--  <dependency>
              <groupId>javax.servlet</groupId>
@@ -84,51 +154,11 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+        </dependency>
         <!-- log4j + slf4j   lib  stop -->
     </dependencies>
-    <build>
-        <finalName>batch-common</finalName>
-
-        <plugins>
-            <!-- 配置一个生产源码 jar 包的 插件，绑定到verify 阶段 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <!-- 这里是插件全局配置 -->
-                <configuration>
-                    <attach>true</attach>
-                    <!-- 配置是否将配置文件去除（true）,false 不去除 -->
-                    <excludeResources>true</excludeResources>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-source</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                        <configuration>
-
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- 配置一个可以执行ant 任务的maven 插件 ;为什么不能配置呢？-->
-            <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <id>ant-validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
-        </plugins>
-    </build>
 </project>

@@ -2,13 +2,16 @@ package common.utils;
 
 
 import common.utils.base64.ApacheBase64Utli;
-import org.slf4j.Logger;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import org.slf4j.Logger;
 
 /**
  * batch-parent.common.utils.base64 <br/>
@@ -154,7 +157,7 @@ public class MD5Util {
 				MessageDigest md5 = MessageDigest.getInstance("MD5");
 				ApacheBase64Utli base64en = new ApacheBase64Utli();
 				//加密后的字符串再用Base64 进行编码
-				String newstr = base64en.Base64Encode(md5.digest(str.getBytes("utf-8")));
+				String newstr = ApacheBase64Utli.Base64Encode(md5.digest(str.getBytes("utf-8")));
 				return newstr;
 		}
 
@@ -168,10 +171,14 @@ public class MD5Util {
 		 * @throws UnsupportedEncodingException
 		 */
 		public boolean checkpassword(String newpasswd, String oldpasswd) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-				if (EncoderByMd5(newpasswd).equals(oldpasswd))
+				if (EncoderByMd5(newpasswd).equals(oldpasswd)){
+
 						return true;
-				else
+				}
+				else{
+
 						return false;
+				}
 		}
 
 
