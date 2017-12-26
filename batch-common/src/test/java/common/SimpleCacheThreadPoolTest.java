@@ -80,7 +80,7 @@ public class SimpleCacheThreadPoolTest extends BaseTest {
      */
     @Test
     public void testShutdown() throws Exception {
-//TODO: Test goes here... 
+        System.out.println(String.format("%,.2f",  1224.344));
     }
 
 
