@@ -1,15 +1,15 @@
 package common;
 
-import java.util.Date;
-import java.util.concurrent.Callable;
-import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * SimpleFixedThreadPool Tester.
@@ -57,8 +57,8 @@ public class SimpleFixedThreadPoolTest extends BaseTest {
     @Test
     public void testAddTaskCallable() throws ExecutionException, InterruptedException {
         Future<String> future=null;
-        for (int i = 0; i < 20; i++) {
-            future= (Future<String>) simpleFixedThreadPool.addTask((Callable<String>) () -> new Random().nextInt()+"\t Vincent");
+        for (int i = 0; i < 200; i++) {
+            future= (Future<String>) simpleFixedThreadPool.addTask((Callable<String>) () -> "Thread "+Thread.currentThread().getName()+"\t"+new Random().nextInt()+"\t Vincent");
             // 获取结果并打印
             System.out.println(future.get());
         }

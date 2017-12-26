@@ -1,11 +1,12 @@
 package common;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.springframework.stereotype.Component;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import org.springframework.stereotype.Component;
 
 /**
  * @Package: common <br/>
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Component;
 @Component("simpleFixedThreadPool")
 public class SimpleFixedThreadPool implements  TaskExecutor{
 		private static ExecutorService executor= Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()*2,
-						new ThreadFactoryBuilder().setNameFormat("SimpleFixedThreadPool- %d").build());
+						new ThreadFactoryBuilder().setNameFormat("SimpleFixedThreadPool- %d: ").build());
 
 		/**
 		 * 提交任务,任务执行后无返回值
@@ -32,10 +33,9 @@ public class SimpleFixedThreadPool implements  TaskExecutor{
 			executor.execute(task);
 		}
 
-
 		@Override
-		public Future<?> addTask(Callable<?> task) {
-			Future<?> future=executor.submit(task);
+		public <T> Future<T> addTask(Callable<T> task) {
+			Future<T> future=executor.submit(task);
 				return future;
 		}
 
