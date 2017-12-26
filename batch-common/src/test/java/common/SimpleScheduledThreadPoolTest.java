@@ -5,6 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+
 /**
  * SimpleScheduledThreadPool Tester.
  *
@@ -46,6 +49,16 @@ public class SimpleScheduledThreadPoolTest extends BaseTest{
      */
     @Test
     public void testAddTaskTaskCallable() throws Exception {
+        Future<String> future = simpleScheduledThreadPool.addTask(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return "Callable--threadName = "+Thread.currentThread().getName()+" ,time :>> "+(System.currentTimeMillis()/1000);
+            }
+        });
+
+        Thread.sleep(1000);
+        System.out.println(future.get());
+        simpleScheduledThreadPool.shutdown();
     }
 
 
