@@ -14,31 +14,37 @@
     <url>http://maven.apache.org</url>
     <build>
         <finalName>batch-common</finalName>
-
         <plugins>
             <!-- 配置一个生产源码 jar 包的 插件，绑定到verify 阶段 -->
             <plugin>
+                <!-- 配置源码插件 -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <!-- 这里是插件全局配置 -->
-                <configuration>
-                    <attach>true</attach>
-                    <!-- 配置是否将配置文件去除（true）,false 不去除 -->
-                    <excludeResources>true</excludeResources>
-                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>attach-source</id>
-                        <phase>verify</phase>
+                        <!-- -->
+                        <id>make-jar</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <!-- 配置 插件目标到声明周期某阶段 -->
+                            <goal>single</goal>
                         </goals>
                         <configuration>
-
+                            <descriptors>
+                                <descriptor>src/main/assemble/package.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
             <!-- 配置一个可以执行ant 任务的maven 插件 ;为什么不能配置呢？-->
             <!-- <plugin>

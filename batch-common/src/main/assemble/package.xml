@@ -1,0 +1,38 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>package</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <!-- 是否将所有输出的目录放置在工程名目录下。true ，将所有目录放在组件目录下。fasle 将所有目录放置在跟档案文件跟目录下 -->
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <!-- 将所有代码编译后的class 文件，去除配置文件输出到压缩文件的目录下。 -->
+        <fileSet>
+            <directory>target/classes/</directory>
+            <outputDirectory>/</outputDirectory>
+            <excludes>
+                <exclude>**/spring/**/*.xml</exclude>
+                <exclude>**/*.properties</exclude>
+            </excludes>
+        </fileSet>
+        <!-- 可执行文件目录 -->
+        <fileSet>
+            <directory>src/main/bin</directory>
+            <outputDirectory>/bin</outputDirectory>
+        </fileSet>
+        <!-- 配置文件目录 -->
+        <fileSet>
+            <directory>src/main/config</directory>
+            <outputDirectory>/config</outputDirectory>
+        </fileSet>
+    </fileSets>
+    <!-- 将当前组件运行时依赖的 jar包输出到lib 目录下 -->
+    <dependencySets>
+        <dependencySet>
+            <scope>runtime</scope>
+            <outputDirectory>/lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+
+</assembly>

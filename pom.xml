@@ -406,6 +406,15 @@
 					  </execution>
 				  </executions>
 			  </plugin>
+			  <!-- 配置打包过程中跳过测试 -->
+			  <plugin>
+				  <groupId>org.apache.maven.plugins</groupId>
+				  <artifactId>maven-surefire-plugin</artifactId>
+				  <version>2.19.1</version>
+				  <configuration>
+					  <skip>true</skip>
+				  </configuration>
+			  </plugin>
 		  </plugins>
 	  </pluginManagement>
   </build>
