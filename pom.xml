@@ -445,5 +445,6 @@
     <module>batch-base</module>
     <module>springmvcwebservice</module>
     <module>springmvcwebapp</module>
+	  <module>batch-mq</module>
   </modules>
 </project>
