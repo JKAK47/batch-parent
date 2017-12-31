@@ -17,7 +17,21 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <scope>test</scope>
     </dependency>
+    <!-- JNDI 服务 -->
+    <!-- https://mvnrepository.com/artifact/com.sun.messaging.mq/fscontext -->
+   <!-- <dependency>
+      <groupId>com.sun.messaging.mq</groupId>
+      <artifactId>fscontext</artifactId>
+      <version>4.6-b01</version>
+      <scope>test</scope>
+    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/com.sun.jndi/providerutil -->
+   <!-- <dependency>
+      <groupId>com.sun.jndi</groupId>
+      <artifactId>providerutil</artifactId>
+      <version>1.2</version>
+    </dependency>-->
+
   </dependencies>
 </project>
