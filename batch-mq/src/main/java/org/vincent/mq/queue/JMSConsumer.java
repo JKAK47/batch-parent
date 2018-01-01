@@ -1,4 +1,4 @@
-package org.vincent.mq;
+package org.vincent.mq.queue;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -7,7 +7,6 @@ import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
@@ -21,37 +20,38 @@ import org.apache.activemq.ActiveMQConnectionFactory;
  */
 public class JMSConsumer {
 
-    private static final String USERNAME = ActiveMQConnection.DEFAULT_USER;//默认连接用户名
-    private static final String PASSWORD = ActiveMQConnection.DEFAULT_PASSWORD;//默认连接密码
-    private static final String BROKEURL = ActiveMQConnection.DEFAULT_BROKER_URL;//默认连接地址
+
 
     public static void main(String[] args) {
         ConnectionFactory connectionFactory;//连接工厂
-        Connection connection = null;//连接
+        //队列连接
+        Connection connection = null;
 
         Session session;//会话 接受或者发送消息的线程
         Destination destination;//消息的目的地
 
         MessageConsumer messageConsumer;//消息的消费者
 
-        //实例化连接工厂
-        connectionFactory = new ActiveMQConnectionFactory(JMSConsumer.USERNAME, JMSConsumer.PASSWORD, JMSConsumer.BROKEURL);
+        //第一步，实例化连接工厂
+        connectionFactory = new ActiveMQConnectionFactory(Constants.USERNAME, Constants.PASSWORD, Constants.BROKEURL);
 
         try {
-            //通过连接工厂获取连接
+            //第二步，通过连接工厂获取连接
             connection = connectionFactory.createConnection();
             //启动连接
             connection.start();
-            //创建session
+            //第三步，创建session，读取消息不开启事务
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            //创建一个连接HelloWorld的消息队列
-            destination = session.createQueue("HelloWorld");
-            //创建消息消费者
+            //第四步，创建一个连接HelloWorld的消息队列，接受者消息队列名称 必须和发送者的的消息队列名字一致；如果不一致那么消费者将一直阻塞。
+            destination = session.createQueue(Constants.QueueName);
+            //第五步，创建消息消费者
             messageConsumer = session.createConsumer(destination);
 
             while (true) {
                 TextMessage textMessage = (TextMessage) messageConsumer.receive(100000);
                 if (textMessage != null) {
+                    //通知消息队列，消费者已消费了这条消息，可以从消息队列把这条消息删除；防止多个消息接受者接受到同一个消息。
+                    textMessage.acknowledge();
                     System.out.println("收到的消息:" + textMessage.getText());
                 } else {
                     break;

@@ -1,13 +1,13 @@
-package org.vincent.mq;
+package org.vincent.mq.queue;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
+import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
@@ -15,20 +15,10 @@ import org.apache.activemq.ActiveMQConnectionFactory;
  * Created by PengRong on 2017/12/29. <br/>
  *  http://blog.csdn.net/caiwenfeng_for_23/article/details/8606538
  * @author PengRong <br/>
- * @Description 基于ActiveMQ实现的消息提供者 简单实例 (${END})
+ * @Description 基于ActiveMQ 消息队列 实现的消息提供者 简单实例 (${END})
  * @ClassName: ${CLASS}
  * @since 2017-12-29 14:17 <br/>
  */public class JMSProducer {
-
-    //默认连接用户名
-    private static final String USERNAME = ActiveMQConnection.DEFAULT_USER;
-    //默认连接密码
-    private static final String PASSWORD = ActiveMQConnection.DEFAULT_PASSWORD;
-    //默认连接地址
-    private static final String BROKEURL = ActiveMQConnection.DEFAULT_BROKER_URL;
-    //发送的消息数量
-    private static final int SENDNUM = 10;
-
     public static void main(String[] args) {
         //连接工厂
         ConnectionFactory connectionFactory;
@@ -41,24 +31,27 @@ import org.apache.activemq.ActiveMQConnectionFactory;
         //消息生产者
         MessageProducer messageProducer;
         //实例化连接工厂
-        connectionFactory = new ActiveMQConnectionFactory(JMSProducer.USERNAME, JMSProducer.PASSWORD, JMSProducer.BROKEURL);
+        connectionFactory = new ActiveMQConnectionFactory(Constants.USERNAME, Constants.PASSWORD, Constants.BROKEURL);
 
         try {
             //通过连接工厂获取连接
             connection = connectionFactory.createConnection();
             //启动连接
             connection.start();
-            //创建session
+            //创建session，开启事务
             session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
-            //创建一个名称为HelloWorld的消息队列
-            destination = session.createQueue("HelloWorld");
+            //创建一个名称为Vincent的消息队列，消息队列是消息生产者以及消费者共同拥有的一个结构
+            destination = session.createQueue("Vincent");
             //创建消息生产者
             messageProducer = session.createProducer(destination);
+            // 设置消息不需要持久化
+            //// 发送消息。non-persistent 默认异步发送；persistent 默认同步发送(同步发送会阻塞生产者
+            messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
             //发送消息
             sendMessage(session, messageProducer);
 
             session.commit();
-
+            System.out.println("P2P生产者消息产生完毕");
         } catch (Exception e) {
             e.printStackTrace();
         }finally{
@@ -73,13 +66,13 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
     }
     /**
-     * 发送消息
+     * 发送文本消息
      * @param session
      * @param messageProducer  消息生产者
      * @throws Exception
      */
     public static void sendMessage(Session session,MessageProducer messageProducer) throws Exception{
-        for (int i = 0; i < JMSProducer.SENDNUM; i++) {
+        for (int i = 0; i < Constants.SENDNUM; i++) {
             //创建一条文本消息
             TextMessage message = session.createTextMessage("ActiveMQ 发送消息" +i);
             System.out.println("发送消息：Activemq 发送消息" + i);
