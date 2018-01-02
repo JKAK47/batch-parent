@@ -24,7 +24,7 @@ public class Constants {
 		/**发送的消息数量*/
 		public static final int SENDNUM = 10;
 		/** 队列名字 */
-		public static final  String TopicName="Vincent";
+		public static final  String TopicName="topic.Vincent";
 		/** 主题名字 */
 		public static final  String QueueName="org.Vincent";
 }

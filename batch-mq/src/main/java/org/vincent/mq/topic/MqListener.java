@@ -25,6 +25,7 @@ public class MqListener implements MessageListener {
 						MapMessage mapMessage= (MapMessage) message;
 						if (mapMessage!=null){
 								System.out.println("name: "+mapMessage.getString("name")+"\tage: "+mapMessage.getInt("agt")+"\taddress"+mapMessage.getString("address"));
+								mapMessage.acknowledge();//topic 类型消息系统，确认消费消息
 						}
 				}catch (Exception e){
 						e.printStackTrace();

@@ -1,5 +1,7 @@
 package org.vincent.mq.queue;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
+
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -7,22 +9,21 @@ import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
  * batch-parent.org.vincent.mq <br/>
  * Created by PengRong on 2017/12/29. <br/>
  *
  * @author PengRong <br/>
- * @Description TODO(${END})
+ * @Description 基于ActiveMQ 消息队列 实现的消息消费者 简单测试实例;对于点对点的消息队列，先启动生产者，然后启动消费者(${END})
  * @ClassName: ${CLASS}
  * @since 2017-12-29 17:15 <br/>
  */
-public class JMSConsumer {
+public class JMSConsumer implements Runnable{
 
+    @Override
+    public void run() {
 
-
-    public static void main(String[] args) {
         ConnectionFactory connectionFactory;//连接工厂
         //队列连接
         Connection connection = null;

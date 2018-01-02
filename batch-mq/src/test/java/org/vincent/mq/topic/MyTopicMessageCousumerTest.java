@@ -7,7 +7,7 @@ import org.junit.Test;
 
 /**
  * MyTopicMessageConsumer Tester.
- *
+ * 基于Topic 模式的消费者测试类，先生产者启动，阻塞等待生产者生产消息。
  * @author <PengRong>
  * @version 1.0
  */
