@@ -1,5 +1,7 @@
 package org.vincent.mq.persist;
 
+import org.vincent.mq.persist.exception.AccountPersistException;
+
 /**
  * @Package: org.vincent.mq.persist <br/>
  * @Description： TODO <br/>
@@ -12,6 +14,9 @@ package org.vincent.mq.persist;
  * @Created by PengRong on 2018/1/2. <br/>
  */
 
-public class AccountPersistService {
-
+public interface AccountPersistService {
+	Account createAccount(Account account) throws AccountPersistException;
+	Account readAccount(String id)  throws AccountPersistException;
+	Account updateAccount(Account account)  throws AccountPersistException;
+	Account deleteAccount(String id)  throws AccountPersistException;
 }

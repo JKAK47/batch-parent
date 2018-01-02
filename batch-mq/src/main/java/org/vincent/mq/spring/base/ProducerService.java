@@ -5,7 +5,7 @@ import javax.jms.Destination;
 /**
  * batch-parent.spring.base <br/>
  * Created by PengRong on 2018/1/2. <br/>
- *
+ * Spring + ActiveMQ集成后，生产者接口
  * @author PengRong <br/>
  * @Description TODO(${END})
  * @ClassName: ${CLASS}

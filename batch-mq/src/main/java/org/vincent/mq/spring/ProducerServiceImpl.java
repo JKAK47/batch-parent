@@ -22,6 +22,7 @@ public class ProducerServiceImpl implements ProducerService {
     @Autowired
     @Qualifier("jmsTemplate")
     private JmsTemplate jmsTemplate;
+    @Override
     public void sendMessage(Destination destination, final String message) {
         System.out.println("---------------生产者发送消息-----------------");
         System.out.println("---------------生产者发了一个消息：" + message);

@@ -93,7 +93,12 @@
             <version>1.0</version>
         </dependency>
         <!-- Spring 集成activeMQ stop -->
-
+        <!-- Account 部分 操作 xml 文件依赖的 组件-->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>batch-mq</finalName>
