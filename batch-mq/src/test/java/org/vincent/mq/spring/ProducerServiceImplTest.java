@@ -41,7 +41,7 @@ public class ProducerServiceImplTest extends AbstractJUnit4SpringContextTests {
     @Test
     public void testSendMessage() throws Exception {
         for (int i=0; i<2; i++) {
-            producerService.sendMessage(destination, "你好，生产者！这是消息：" + (i+1));
+            producerService.sendMessage(destination, "你好，消费者！这是消息，我是生产者：" + (i+1));
         }
     }
 
