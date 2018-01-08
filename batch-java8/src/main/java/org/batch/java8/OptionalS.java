@@ -5,7 +5,10 @@ import java.util.Optional;
 /**
  * batch-parent.org.batch.java8 <br/>
  * Created by PengRong on 2018/1/3. <br/>
- *
+ *http://blog.csdn.net/chris_mao/article/details/48827961
+ * http://blog.csdn.net/Bill_Xiang_/article/details/53178830
+ * http://blog.csdn.net/yjc_1111/article/details/78002083
+ * http://elim.iteye.com/blog/1893038
  * @author PengRong <br/>
  * @Description Optional 判定使用(${END})
  * @ClassName: ${CLASS}
