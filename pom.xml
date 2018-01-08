@@ -1,74 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  
-  <groupId>org.vincent</groupId>
-  <artifactId>batch-parent</artifactId>
-  <packaging>pom</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  <name>batch-parent Maven  多模块项目，管理模块</name>
-  <url>http://maven.apache.org</url>
-  <properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
-		
-		<!-- others -->
-		<org.springframework.version>4.3.2.RELEASE</org.springframework.version>
-		<org.springframework.security.version>3.2.4.RELEASE</org.springframework.security.version>
-		<mybatis.version>3.4.4</mybatis.version>
-		<mybatis.spring.version>1.3.0</mybatis.spring.version>
-		<dubbo.version>2.5.4</dubbo.version>
-		<junit.version>4.12</junit.version>
-		<mysql.jdbc.driver.mysql.version>5.1.42</mysql.jdbc.driver.mysql.version>
-		<mysql.jdbc.driver.oracle.version>11.1.0.7.0</mysql.jdbc.driver.oracle.version>
-		<log4j.version>1.2.17</log4j.version>
-		<slf4j.version>1.7.25</slf4j.version>
-		<zookeeper.version>3.4.5</zookeeper.version>
-		<jedis.version>2.9.0</jedis.version>
-		<servlet.version>3.1-b09</servlet.version>
-		<hydra.version>1.0-RELEASES</hydra.version>
-	  	<druid.version>1.1.5</druid.version>
-	  	<batch-common>0.0.1-SNAPSHOT</batch-common>
-	</properties>
-	
-	<!-- 主Pom 中通过 dependencyManagement 将子模块可能会用到的jar包 依赖先 引入进来
-		子模块需要哪个jar 只需要讲对应的groupId , artifactId 元素引入即可，不用version。子模块可以选择性的继承
-	-->
-  	<dependencyManagement>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  		<dependencies>
-			<!-- 本项目依赖 -->
-			<dependency>
-				<groupId>org.vincent</groupId>
-				<artifactId>batch-common</artifactId>
-				<version>${batch-common}</version>
-			</dependency>
+    <groupId>org.vincent</groupId>
+    <artifactId>batch-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
 
-			<!-- 本项目依赖 -->
+    <name>batch-parent Maven 多模块项目，管理模块</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
 
-  			 <!-- log4j + slf4j   lib  start-->
-  			 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api  slf4j 接口实现-->
-			<dependency>
-			    <groupId>org.slf4j</groupId>
-			    <artifactId>slf4j-api</artifactId>
-			    <version>${slf4j.version}</version>
-			</dependency>
-  			 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12  slf4j 桥接 log4j1.x -->
-			<dependency>
-			    <groupId>org.slf4j</groupId>
-			    <artifactId>slf4j-log4j12</artifactId>
-			    <version>${slf4j.version}</version>
-			</dependency>
-  			 
-  			<!-- https://mvnrepository.com/artifact/log4j/log4j  1.2.17  log 具体实现-->
-			<dependency>
-				 <groupId>log4j</groupId>
-				 <artifactId>log4j</artifactId>
-				 <version>${log4j.version}</version>
-			</dependency>
-  			 <!-- log4j + slf4j   lib  stop -->
-  			 
+        <!-- others -->
+        <org.springframework.version>4.3.2.RELEASE</org.springframework.version>
+        <org.springframework.security.version>3.2.4.RELEASE</org.springframework.security.version>
+        <mybatis.version>3.4.4</mybatis.version>
+        <mybatis.spring.version>1.3.0</mybatis.spring.version>
+        <dubbo.version>2.5.4</dubbo.version>
+        <junit.version>4.12</junit.version>
+        <mysql.jdbc.driver.mysql.version>5.1.42</mysql.jdbc.driver.mysql.version>
+        <mysql.jdbc.driver.oracle.version>11.1.0.7.0</mysql.jdbc.driver.oracle.version>
+        <log4j.version>1.2.17</log4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <zookeeper.version>3.4.5</zookeeper.version>
+        <jedis.version>2.9.0</jedis.version>
+        <servlet.version>3.1-b09</servlet.version>
+        <hydra.version>1.0-RELEASES</hydra.version>
+        <druid.version>1.1.5</druid.version>
+        <batch-common>0.0.1-SNAPSHOT</batch-common>
+    </properties>
+
+    <!-- 主Pom 中通过 dependencyManagement 将子模块可能会用到的jar包 依赖先 引入进来
+        子模块需要哪个jar 只需要讲对应的groupId , artifactId 元素引入即可，不用version。子模块可以选择性的继承
+        dependencyManagement既保证了子模块可以继承到父模块的依赖配置，同时保证子模块只依赖需要的配置jar包；声明的依赖
+        不会在当前项目下引入依赖。但是能约束子模块能依赖的模块。
+    -->
+    <dependencyManagement>
+
+        <dependencies>
+            <!-- 本项目依赖 -->
+            <dependency>
+                <groupId>org.vincent</groupId>
+                <artifactId>batch-common</artifactId>
+                <version>${batch-common}</version>
+            </dependency>
+
+            <!-- 本项目依赖 -->
+
+            <!-- log4j + slf4j   lib  start-->
+            <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api  slf4j 接口实现-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12  slf4j 桥接 log4j1.x -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/log4j/log4j  1.2.17  log 具体实现-->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <!-- log4j + slf4j   lib  stop -->
+
             <!-- https://mvnrepository.com/artifact/joda-time/joda-time 
             java 中日期，时间API-->
             <dependency>
@@ -76,398 +79,395 @@
                 <artifactId>joda-time</artifactId>
                 <version>2.9.9</version>
             </dependency>
-                        
-  			<!-- junit -->
-		    <dependency>
-		      <groupId>junit</groupId>
-		      <artifactId>junit</artifactId>
-		      <version>${junit.version}</version>
-		      <scope>test</scope>
-		    </dependency>
-		    
-		    <!-- Servlet begin ,servlet runtime  -->
-		    <dependency>
-		        <groupId>javax.servlet</groupId>
-		        <artifactId>jstl</artifactId>
-		        <version>1.2</version>
-		    </dependency>
-		    <dependency>
-		        <groupId>javax.servlet</groupId>
-		        <artifactId>servlet-api</artifactId>
-		        <version>2.5</version>
-		        <scope>provided</scope>
-		    </dependency>
-		    <dependency>
-		        <groupId>javax.servlet.jsp</groupId>
-		        <artifactId>jsp-api</artifactId>
-		        <version>2.1</version>
-		        <scope>provided</scope>
-		    </dependency>
-		    <dependency>
-		        <groupId>taglibs</groupId>
-		        <artifactId>standard</artifactId>
-		        <version>1.1.2</version>
-		    </dependency>
-		    <!-- Servlet end -->
-		    
-		    <!-- commons begin -->
-		    <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
-			<dependency>
-			    <groupId>commons-codec</groupId>
-			    <artifactId>commons-codec</artifactId>
-			    <version>1.11</version>
-			</dependency>
-		    
-		    <dependency>
-				<groupId>commons-collections</groupId>
-				<artifactId>commons-collections</artifactId>
-				<version>3.2</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>2.0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>3.5</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-				<version>1.1.3</version>
-			</dependency>
-			<dependency>
-		  		<groupId>org.apache.commons</groupId>
-		  		<artifactId>commons-collections4</artifactId>
-		  		<version>4.0</version>
-		  	</dependency>
-		  	<dependency>
-		  		<groupId>commons-dbcp</groupId>
-		  		<artifactId>commons-dbcp</artifactId>
-		  		<version>1.4</version>
-		  	</dependency>
-		  	<dependency>
-		  		<groupId>commons-pool</groupId>
-		  		<artifactId>commons-pool</artifactId>
-		  		<version>1.6</version>
-		  	</dependency>	
-		    <!-- commons end -->
-		    
-		    
-		    
-		    <!-- spring batch begin  -->
-		    <dependency>
-				<groupId>org.springframework.batch</groupId>
-				<artifactId>spring-batch-core</artifactId>
-				<version>3.0.8.RELEASE</version>
-			</dependency>
-	       <dependency>  
-	            <groupId>org.springframework.batch</groupId>  
-	            <artifactId>spring-batch-infrastructure</artifactId>  
-	            <version>3.0.8.RELEASE</version>
-	        </dependency> 
-	        <dependency>
-			    <groupId>org.springframework.retry</groupId>
-			    <artifactId>spring-retry</artifactId>
-			    <version>1.1.0.RELEASE</version>
-			</dependency>
-	        <dependency>  
-	            <groupId>org.springframework.batch</groupId>  
-	            <artifactId>spring-batch-test</artifactId>  
-	            <version>3.0.8.RELEASE</version>  
-	            <scope>test</scope>  
-	        </dependency> 
-	        <!-- spring batch end -->
-	        
-		    <!-- Spring Dependency Begin -->			    
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aspects</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-beans</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context-support</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-expression</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-instrument</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-instrument-tomcat</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-mysql.jdbc</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jms</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-messaging</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-oxm</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-struts</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${org.springframework.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc-portlet</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
-			<dependency>
-		  		<groupId>org.springframework</groupId>
-		  		<artifactId>spring-mock</artifactId>
-		  		<version>2.0.8</version>
-		  		<scope>test</scope> 
-		  	</dependency>
-		  	<!-- Spring Dependency End -->
-		  	
-		  	<!-- MyBatis Dependency Begin -->
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis</artifactId>
-				<version>${mybatis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis-spring</artifactId>
-				<version>${mybatis.spring.version}</version>
-			</dependency>
-			<!-- MyBatis Dependency End -->
 
-			<!-- database Driver Begin  Mysql and Oracle -->
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>druid</artifactId>
-				<version>${druid.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql.jdbc.driver.mysql.version}</version>
-			</dependency>
-<!-- 		<dependency>
-			    <groupId>com.oracle</groupId>
-			    <artifactId>ojdbc14</artifactId>
-			    <versiomysql.jdbcjdbc.driver.oracle.version}</version>
-			</dependency> -->
-			<dependency>
-				<groupId>com.oracle</groupId>
-				<artifactId>ojdbc6</artifactId>
-				<version>${mysql.jdbc.driver.oracle.version}</version>
-			</dependency>			
-			<!-- DataBase Driver End -->
-			
-			<!-- java Mail start  -->
-				<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
-			<dependency>
-			    <groupId>javax.mail</groupId>
-			    <artifactId>mail</artifactId>
-			    <version>1.4.1</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/com.icegreen/greenmail -->
-			<dependency>
-			    <groupId>com.icegreen</groupId>
-			    <artifactId>greenmail</artifactId>
-			    <version>1.3.1b</version>
-			    <scope>test</scope>
-			</dependency>	
-			<!-- java Mail stop  -->
-			
-			<!-- other begin -->
-			<dependency>
-				<groupId>org.freemarker</groupId>
-				<artifactId>freemarker</artifactId>
-				<version>2.3.19</version>
-			</dependency>
+            <!-- junit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
 
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>1.1.41</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.httpcomponents</groupId>
-				<artifactId>httpclient</artifactId>
-				<version>4.3.3</version>
-			</dependency>
-			<!-- other end -->
-	  </dependencies>
-  	</dependencyManagement>
-  
-  <build>
-    <finalName>batch-parent</finalName>
-	  <!-- 项目范围级别 compiler 全局配置 -->
-	  <pluginManagement>
-		  <plugins>
-			  <plugin>
-				  <groupId>org.apache.maven.plugins</groupId>
-				  <artifactId>maven-compiler-plugin</artifactId>
-				  <version>3.5.1</version>
-				  <configuration>
-					  <!-- put your configurations here -->
-					  <source>${java.version}</source>
-					  <target>${java.version}</target>
-                      <compilerVersion>${java.version}</compilerVersion>
-                      <encoding>UTF-8</encoding>
-				  </configuration>
-			  </plugin>
-			  <!-- 配置一个生产源码 jar 包的 插件，绑定到verify 阶段执行这个目标 -->
-			  <plugin>
-				  <groupId>org.apache.maven.plugins</groupId>
-				  <artifactId>maven-source-plugin</artifactId>
-				  <version>3.0.1</version>
-				  <!-- 这里是插件全局配置 -->
-				  <configuration>
-					  <attach>true</attach>
-					  <!-- 配置是否将配置文件去除（true）,false 不去除 -->
-					  <excludeResources>false</excludeResources>
-				  </configuration>
-				  <executions>
-					  <execution>
-						  <id>attach-source</id>
-						  <phase>verify</phase>
-						  <goals>
-							  <goal>jar-no-fork</goal>
-						  </goals>
-						  <!-- 插件任务配置 -->
-						  <configuration>
-						  </configuration>
-					  </execution>
-				  </executions>
-			  </plugin>
-			  <!-- 配置打包过程中跳过测试插件， -->
-			  <plugin>
-				  <groupId>org.apache.maven.plugins</groupId>
-				  <artifactId>maven-surefire-plugin</artifactId>
-				  <version>2.19.1</version>
-				  <configuration>
-					  <skip>true</skip>
-				  </configuration>
-			  </plugin>
-			  <!-- 声明使用UTF-8编码去处理资源文件 -->
-			  <plugin>
-				  <groupId>org.apache.maven.plugins</groupId>
-				  <artifactId>maven-resources-plugin</artifactId>
-				  <configuration>
-					  <encoding>UTF-8</encoding>
-				  </configuration>
-			  </plugin>
-		  </plugins>
-	  </pluginManagement>
-  </build>
-  
-  <!-- 配置 阿里公共maven 仓库。 -->
-<repositories>
-        <repository>  
-            <id>nexus-alimaven</id>  
-            <name>aliyun maven</name>  
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>  
-            <releases>  
-                <enabled>true</enabled>  
-            </releases>  
-            <snapshots>  
-                <enabled>false</enabled>  
+            <!-- Servlet begin ,servlet runtime  -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>taglibs</groupId>
+                <artifactId>standard</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+            <!-- Servlet end -->
+
+            <!-- commons begin -->
+            <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.11</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.5</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-pool</groupId>
+                <artifactId>commons-pool</artifactId>
+                <version>1.6</version>
+            </dependency>
+            <!-- commons end -->
+
+
+            <!-- spring batch begin  -->
+            <dependency>
+                <groupId>org.springframework.batch</groupId>
+                <artifactId>spring-batch-core</artifactId>
+                <version>3.0.8.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.batch</groupId>
+                <artifactId>spring-batch-infrastructure</artifactId>
+                <version>3.0.8.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.retry</groupId>
+                <artifactId>spring-retry</artifactId>
+                <version>1.1.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.batch</groupId>
+                <artifactId>spring-batch-test</artifactId>
+                <version>3.0.8.RELEASE</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- spring batch end -->
+
+            <!-- Spring Dependency Begin -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-instrument</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-instrument-tomcat</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-mysql.jdbc</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-messaging</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-oxm</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-struts</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${org.springframework.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc-portlet</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-mock</artifactId>
+                <version>2.0.8</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Spring Dependency End -->
+
+            <!-- MyBatis Dependency Begin -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis.spring.version}</version>
+            </dependency>
+            <!-- MyBatis Dependency End -->
+
+            <!-- database Driver Begin  Mysql and Oracle -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.jdbc.driver.mysql.version}</version>
+            </dependency>
+            <!-- 		<dependency>
+                            <groupId>com.oracle</groupId>
+                            <artifactId>ojdbc14</artifactId>
+                            <versiomysql.jdbcjdbc.driver.oracle.version}</version>
+                        </dependency> -->
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>${mysql.jdbc.driver.oracle.version}</version>
+            </dependency>
+            <!-- DataBase Driver End -->
+
+            <!-- java Mail start  -->
+            <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>1.4.1</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.icegreen/greenmail -->
+            <dependency>
+                <groupId>com.icegreen</groupId>
+                <artifactId>greenmail</artifactId>
+                <version>1.3.1b</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- java Mail stop  -->
+
+            <!-- other begin -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.19</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.1.41</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.3.3</version>
+            </dependency>
+            <!-- other end -->
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <finalName>batch-parent</finalName>
+
+        <pluginManagement>
+            <plugins>
+                <!-- 项目范围级别 compiler 全局配置 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.5.1</version>
+                    <configuration>
+                        <!-- put your configurations here -->
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <compilerVersion>${java.version}</compilerVersion>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <!-- 配置一个生产源码 jar 包的 插件，绑定到verify 阶段执行这个目标 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <!-- 这里是插件全局配置 -->
+                    <configuration>
+                        <attach>true</attach>
+                        <!-- 配置是否将配置文件去除（true）,false 不去除 -->
+                        <excludeResources>false</excludeResources>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-source</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                            <!-- 插件任务配置 -->
+                            <configuration>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- 配置打包过程中跳过测试插件， -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+                <!-- 声明使用UTF-8编码去处理资源文件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!-- 配置 阿里公共maven 仓库。 -->
+    <repositories>
+        <repository>
+            <id>nexus-alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
                 <!-- 检查频率 -->
                 <updatePolicy>interval:60</updatePolicy>
                 <checksumPolicy>warn</checksumPolicy>
-            </snapshots>  
+            </snapshots>
             <layout>default</layout>
-        </repository>  
-</repositories>
+        </repository>
+    </repositories>
 
 
-
-
-
-  <modules>
-  	<module>batch-common</module>
-  	<module>batch-db</module>
-  	<module>batch-demo</module>
-    <module>batch-java8</module>
-    <module>batch-base</module>
-    <module>springmvcwebservice</module>
-    <module>springmvcwebapp</module>
-	  <module>batch-mq</module>
-  </modules>
+    <modules>
+        <module>batch-common</module>
+        <module>batch-db</module>
+        <module>batch-demo</module>
+        <module>batch-java8</module>
+        <module>batch-base</module>
+        <module>springmvcwebservice</module>
+        <module>springmvcwebapp</module>
+        <module>batch-mq</module>
+    </modules>
 </project>
