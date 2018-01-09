@@ -162,5 +162,17 @@
             <artifactId>log4j</artifactId>
         </dependency>
         <!-- log4j + slf4j   lib  stop -->
+        <!-- quartz 定时任务开始-->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <!-- quartz 定时任务结束-->
     </dependencies>
 </project>
