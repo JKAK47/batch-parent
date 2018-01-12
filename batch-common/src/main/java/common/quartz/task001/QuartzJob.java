@@ -8,7 +8,7 @@ import org.quartz.JobKey;
 import org.springframework.stereotype.Component;
 
 /**
- * @Package: common.quartz。QuartzJob <br/>
+* @Package: common.quartzQuartzJob <br/>
  * @Description： Quartz 任务调度程序一个 Job，实现Job 接口 <br/>
  * @author: PengRong <br/>
  * @Date: Created in 2018/1/9 20:52 <br/>
