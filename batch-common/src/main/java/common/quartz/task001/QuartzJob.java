@@ -5,6 +5,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.JobKey;
+import org.springframework.stereotype.Component;
 
 /**
  * @Package: common.quartz。QuartzJob <br/>
@@ -17,7 +18,7 @@ import org.quartz.JobKey;
  * @Modified By: <br/>
  * @Created by PengRong on 2018/1/9. <br/>
  */
-
+@Component("quartzJob")
 public class QuartzJob implements Job {
 		/**
 		 * execute 是被调度器scheduler 到时间点调度的方法。

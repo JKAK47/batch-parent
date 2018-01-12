@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+        <!-- Quartz 集成Spring 配置-->
+        <!-- 定义作业任务Bean JobDetailFactoryBean -->
+        <bean id="jobDetailFactoryBeanExample" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+                <!--
+                    参考源码，我们可以看到属性jobClass为Class类型，所以不能使用ref来引用一个bean，否则就会因为不能将bean转换为Class类型而出现异常。
+                    <property name="jobClass" ref="simpleJob"/>
+                    必须使用value对jobClass赋值。
+                    <property name="jobClass" value="common.quartz.spring.task002.SimpleJob"/>
+                -->
+                <property name="jobClass" value="common.quartz.spring.task002.SimpleJob"/>
+                <!-- 这里设置的jobDataAsMap可以传递一些参数给作业任务 -->
+                <property name="jobDataAsMap">
+                        <map>
+                                <entry key="name" value="vincent"/>
+                                <entry key="copyright" value="PLCC"/>
+                                <entry key="key3" value="987"/>
+                        </map>
+                </property>
+        </bean>
+
+        <!-- 定义作业任务 Bean MethodInvokingJobDetailFactoryBean -->
+        <!--
+            如果两个触发器触发同一个作业，那么第二个作业可能在第一个作业完成之前被触发。
+            将作业类实现StatefulJob接口就可以避免这种情况。
+            将concurrent设置为false可以避免并发的发生。
+        -->
+        <!-- 使用MethodInvokingJobDetailFactoryBean来创建作业对象 -->
+        <bean id="methodInvokingJobDetailFactoryBeanExample" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+                <!-- 目标对象，指的是作业任务的实现类 -->
+                <property name="targetObject" ref="exampleJob"/>
+                <!-- 目标方法，指的是指定实现类中的哪个方法作为调度时的执行方法 -->
+                <property name="targetMethod" value="execute"/>
+                <!-- 是否并发 -->
+                <property name="concurrent" value="false"/>
+                <!-- 设置job 的名字和组名 -->
+                <property name="name" value="spring-method"/>
+                <property name="group" value="spring-method-group"/>
+        </bean>
+
+        <!-- 触发器 simpleTrigger-->
+        <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+                <!-- 这里的JobDetail指的就是我们配置的作业任务的bean -->
+                <property name="jobDetail" ref="methodInvokingJobDetailFactoryBeanExample" />
+                <!-- 延迟5秒开始 -->
+                <property name="startDelay" value="5000"></property>
+                <!-- 每3秒重复一次 -->
+                <property name="repeatInterval" value="3000"></property>
+        </bean>
+        <!-- 触发器 cronTrigger-->
+        <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+                <!-- 这里的JobDetail指的就是我们配置的作业任务的bean -->
+                <property name="jobDetail" ref="jobDetailFactoryBeanExample"/>
+                <!--cronExpression，cron表达式-->
+                <property name="cronExpression" value="40 52 17 * * ?"/>
+        </bean>
+
+</beans>
+

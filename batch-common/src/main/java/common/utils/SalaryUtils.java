@@ -3,10 +3,11 @@ package common.utils;
 import common.ExactCompute;
 import common.utils.bean.RateBean;
 import common.utils.bean.SalaryBean;
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Salary Utility
@@ -34,7 +35,7 @@ public class SalaryUtils {
 		private static final String TAX_BASE = "3500";
 
 		public static void main(String[] args) {
-				System.out.println(defaultSalary("10000","1300","250"));
+				System.out.println(defaultSalary("10000","1300","400"));
 		}
 
 		/**
