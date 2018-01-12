@@ -35,7 +35,7 @@ public class SalaryUtils {
 		private static final String TAX_BASE = "3500";
 
 		public static void main(String[] args) {
-				System.out.println(defaultSalary("10000","1300","400"));
+				System.out.println(defaultSalary("10000","1550","0"));
 		}
 
 		/**
@@ -49,13 +49,14 @@ public class SalaryUtils {
 				Map<String, String> map = new HashMap<>(4);
 				map.put(PENSION_RATE, "0.08");
 				map.put(MEDICAL_INSURANCE_RATE, "0.02");
-				map.put(UNEMPLOYMENT_INSURANCE_RATE, "0.001065");
+				map.put(UNEMPLOYMENT_INSURANCE_RATE, "0.005");
 				map.put(COMMON_RESERVE_FUNDS_RATE, "0.12");
 				BigDecimal salary = computeTax(baseSalary, bounty, map);
 				return ExactCompute.formatBigDecimal(salary.add(new BigDecimal(butie)));
 		}
 
 		/**
+		 * 计算税后工资
 		 * @param baseSalary 缴税薪水基数 </br>
 		 * @param bounty     补贴 </br>
 		 * @param map        五险一金各险 费率 </br>
@@ -154,25 +155,26 @@ public class SalaryUtils {
 				BigDecimal medical_insurance = null;
 				BigDecimal unemployment_insurance = null;
 				BigDecimal common_reserve_funds = null;
-				/** yanglaobaoxian */
+				/** 养老保险 */
 				if (StringUtils.isNotBlank(pension_rate)) {
 						pension = bigSaseSalary.multiply(new BigDecimal(pension_rate));
 				} else {
 						pension = new BigDecimal(0);
 				}
-				/** yiliaobaoxian */
+				/** 医疗保险 */
 				if (StringUtils.isNotBlank(medical_insurance_rate)) {
 						medical_insurance = bigSaseSalary.multiply(new BigDecimal(medical_insurance_rate));
 				} else {
 						medical_insurance = new BigDecimal(0);
 				}
-				/** shiyebaoxian */
+				/** 失业保险；缴费基数 以深圳市最低工资 */
 				if (StringUtils.isNotBlank(unemployment_insurance_rate)) {
-						unemployment_insurance = bigSaseSalary.multiply(new BigDecimal(unemployment_insurance_rate));
+						BigDecimal base=new BigDecimal("2130");//深圳市工资最低标准 2130
+						unemployment_insurance = base.multiply(new BigDecimal(unemployment_insurance_rate));
 				} else {
 						unemployment_insurance = new BigDecimal(0);
 				}
-				/** gongjinj */
+				/** 公积金 */
 				if (StringUtils.isNotBlank(common_reserve_funds_rate)) {
 						common_reserve_funds = bigSaseSalary.multiply(new BigDecimal(common_reserve_funds_rate));
 				} else {

@@ -7,7 +7,7 @@
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context-4.0.xsd">
         <!-- Quartz 集成Spring 配置-->
-        <!-- 定义作业任务Bean JobDetailFactoryBean -->
+        <!-- 定义作业任务Bean JobDetailFactoryBean 来管理作业任务-->
         <bean id="jobDetailFactoryBeanExample" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
                 <!--
                     参考源码，我们可以看到属性jobClass为Class类型，所以不能使用ref来引用一个bean，否则就会因为不能将bean转换为Class类型而出现异常。
