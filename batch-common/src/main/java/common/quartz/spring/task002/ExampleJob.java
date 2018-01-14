@@ -17,6 +17,6 @@ import java.util.Date;
 @Component("exampleJob")
 public class ExampleJob {
     public void execute(){
-        System.out.println("现在是"+new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒").format(new Date()));
+        System.out.println("现在是"+new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒").format(new Date())+"\tI am called by MethodInvokingJobDetailFactoryBean using SimpleTriggerFactoryBean");
     }
 }

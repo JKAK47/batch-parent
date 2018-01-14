@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-						http://www.springframework.org/schema/context
-						http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
         <!-- Quartz 集成Spring 配置-->
-        <!-- 定义作业任务Bean JobDetailFactoryBean 来管理作业任务-->
+        <!-- 第一步：配置Quartz 和Spring 集成后的 作业任务配置 -->
+        <!-- 定义作业任务Bean JobDetailFactoryBean 来管理作业任务;
+        当你需要传递数据给Job 时候使用这个JobBean.-->
         <bean id="jobDetailFactoryBeanExample" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
                 <!--
                     参考源码，我们可以看到属性jobClass为Class类型，所以不能使用ref来引用一个bean，否则就会因为不能将bean转换为Class类型而出现异常。
@@ -22,8 +21,12 @@
                                 <entry key="name" value="vincent"/>
                                 <entry key="copyright" value="PLCC"/>
                                 <entry key="key3" value="987"/>
+                                <entry key="anotherBean" value-ref="anotherBean"/>
                         </map>
                 </property>
+                <property name="durability" value="true"/>
+                <property name="group" value="jobDetail-jobname-group"/>
+                <property name="name" value="jobDetail-jobname"/>
         </bean>
 
         <!-- 定义作业任务 Bean MethodInvokingJobDetailFactoryBean -->
@@ -32,35 +35,54 @@
             将作业类实现StatefulJob接口就可以避免这种情况。
             将concurrent设置为false可以避免并发的发生。
         -->
-        <!-- 使用MethodInvokingJobDetailFactoryBean来创建作业对象 -->
+        <!-- 使用MethodInvokingJobDetailFactoryBean来创建作业对象
+            下面这个Job 配置就是调用 ExampleJob 类的execute 方法。ExampleJob 只是一个简单方法。
+         -->
         <bean id="methodInvokingJobDetailFactoryBeanExample" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
                 <!-- 目标对象，指的是作业任务的实现类 -->
                 <property name="targetObject" ref="exampleJob"/>
-                <!-- 目标方法，指的是指定实现类中的哪个方法作为调度时的执行方法 -->
+                <!-- 目标方法，指的是指定实现类中的哪个方法作为调度时的执行方法；无参数-->
                 <property name="targetMethod" value="execute"/>
                 <!-- 是否并发 -->
                 <property name="concurrent" value="false"/>
                 <!-- 设置job 的名字和组名 -->
-                <property name="name" value="spring-method"/>
-                <property name="group" value="spring-method-group"/>
+                <property name="name" value="spring-quartz-methodInvoking-method"/>
+                <property name="group" value="spring-quartz-methodInvoking-method-group"/>
         </bean>
+        <!-- 第二步：配置Quartz 和Spring 集成后的 触发器配置；触发器定义了调度器调度你的Job 的时间， -->
 
-        <!-- 触发器 simpleTrigger-->
+        <!-- 触发器 simpleTrigger； 配置了作业信息； 下面配置了一个初始延迟 5秒，然后间隔3秒调度任务。-->
         <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
                 <!-- 这里的JobDetail指的就是我们配置的作业任务的bean -->
                 <property name="jobDetail" ref="methodInvokingJobDetailFactoryBeanExample" />
-                <!-- 延迟5秒开始 -->
+                <!-- 启动后延迟5秒开始调度任务 -->
                 <property name="startDelay" value="5000"></property>
                 <!-- 每3秒重复一次 -->
                 <property name="repeatInterval" value="3000"></property>
         </bean>
-        <!-- 触发器 cronTrigger-->
+        <!-- 触发器 cronTrigger ；
+         定义一个在周末每隔5秒调用一次的任务的触发器-->
         <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
                 <!-- 这里的JobDetail指的就是我们配置的作业任务的bean -->
                 <property name="jobDetail" ref="jobDetailFactoryBeanExample"/>
                 <!--cronExpression，cron表达式-->
-                <property name="cronExpression" value="40 52 17 * * ?"/>
+                <property name="cronExpression" value="0/5 * * ? * SAT-SUN"/>
         </bean>
-
+        <!-- 第三步：配置Quartz 和Spring 集成后的 调度工厂配置； 组合JobDetails and triggers  -->
+        <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+                <property name="triggers">
+                        <list>
+                                <ref bean="simpleTrigger"></ref>
+                                <ref  bean="cronTrigger"/>
+                        </list>
+                </property>
+                <!-- 上面触发器已经关联了 任务Job, 所以这个调度器里面可以不用设置任务Job -->
+               <!-- <property name="jobDetails">
+                    <list>
+                        <ref bean="jobDetailFactoryBeanExample"/>
+                        <ref bean="methodInvokingJobDetailFactoryBeanExample"/>
+                    </list>
+                </property>-->
+        </bean>
 </beans>
 

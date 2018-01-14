@@ -24,6 +24,8 @@
     <!-- 配置spring-batch
     <import resource="spring-batch.xml"/>
     <import resource="dubbo-consumer.xml"/> -->
+    <!-- 配置Spring-quartz.xml 定时调度器 -->
+    <import resource="quartz/spring-quartz.xml"/>
     <!-- 获取数据库配置属性， 这种方式配置的属性 不能再代码中获取。-->
    <!-- <context:property-placeholder location="mysql/mysql-db.properties"/>-->
 

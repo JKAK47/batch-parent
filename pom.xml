@@ -31,6 +31,7 @@
         <hydra.version>1.0-RELEASES</hydra.version>
         <druid.version>1.1.5</druid.version>
         <batch-common>0.0.1-SNAPSHOT</batch-common>
+        <c3p0.version>0.9.1.2</c3p0.version>
     </properties>
 
     <!-- 主Pom 中通过 dependencyManagement 将子模块可能会用到的jar包 依赖先 引入进来
@@ -339,7 +340,14 @@
                 <version>${mysql.jdbc.driver.oracle.version}</version>
             </dependency>
             <!-- DataBase Driver End -->
-
+            <!-- JDBC 数据库连接池 C3P0;https://yq.aliyun.com/articles/102014 -->
+            <!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->
+            <dependency>
+                <groupId>c3p0</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>${c3p0.version}</version>
+            </dependency>
+            <!-- JDBC 数据库连接池 C3P0;https://yq.aliyun.com/articles/102014 -->
             <!-- java Mail start  -->
             <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
             <dependency>
