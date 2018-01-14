@@ -31,7 +31,7 @@
 
         <!-- 定义作业任务 Bean MethodInvokingJobDetailFactoryBean -->
         <!--
-            如果两个触发器触发同一个作业，那么第二个作业可能在第一个作业完成之前被触发。
+            如果两个触发器触发调度同一个作业，那么可能造成资源竞争。
             将作业类实现StatefulJob接口就可以避免这种情况。
             将concurrent设置为false可以避免并发的发生。
         -->

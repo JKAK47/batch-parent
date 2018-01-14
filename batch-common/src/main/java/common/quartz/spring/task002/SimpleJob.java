@@ -2,10 +2,12 @@ package common.quartz.spring.task002;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.JobKey;
+import org.quartz.PersistJobDataAfterExecution;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
@@ -19,8 +21,15 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  * @since 2018-01-12 16:19 <br/>
  */
 //@Component("simpleJob") Quartz 调度任务通过class 反射调用的。
-public class SimpleJob extends QuartzJobBean {
 
+/**
+ * 如果你需要持久化 JobDataMap里面的数据你就需要PersistJobDataAfterExecution注解Job；
+ * 如果多个触发器调度Scheduling同一个job，为了避免竞争冲突。使用DisallowConcurrentExecution 注解Job
+  */
+@PersistJobDataAfterExecution
+@DisallowConcurrentExecution
+public class SimpleJob extends QuartzJobBean {
+    public static final String COUNT = "key3";
     private AnotherBean anotherBean;
 
     public void setAnotherBean(AnotherBean anotherBean) {
@@ -34,12 +43,15 @@ public class SimpleJob extends QuartzJobBean {
      */
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+
         JobKey key = context.getJobDetail().getKey();
         //job 唯一标识符
         System.out.println("时间是"+new SimpleDateFormat("yyyy-MM-dd- HH-时-mm-分-ss-秒-").format(new Date())+"key: "+key);
         JobDataMap map = context.getJobDetail().getJobDataMap();
         String name = map.getString("name");
-        System.out.print("quartzJob task Spring....." + name+"\tkey: "+key+"\t");
+        int count=map.getInt(COUNT);
+        System.out.print("quartzJob task Spring....." + name+"\tkey: "+key+"\t "+count++);
+        map.put(COUNT,count);
         anotherBean.printAnotherMessage();
     }
 }
