@@ -1,5 +1,6 @@
 package common.quartz.task001;
 
+import java.util.Date;
 import org.junit.Test;
 import org.quartz.CalendarIntervalScheduleBuilder;
 import org.quartz.CalendarIntervalTrigger;
@@ -18,9 +19,6 @@ import org.quartz.SimpleTrigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.quartz.impl.StdSchedulerFactory;
-import org.quartz.spi.MutableTrigger;
-
-import java.util.Date;
 
 /**
  * QuartzJob Tester.
@@ -62,7 +60,7 @@ public class QuartzJobTest {
         // TriggerBuilder创建 MutableTrigger futureDate
 //SimpleTrigger主要用于一次性执行的Job（只在某个特定的时间点执行一次），
 // 或者Job在特定的时间点执行，重复执行N次，每次执行间隔T个时间单位。
-        MutableTrigger trigger = (MutableTrigger) TriggerBuilder.newTrigger().
+        SimpleTrigger trigger = (SimpleTrigger) TriggerBuilder.newTrigger().
                 withDescription("MutalbeTrigger instance").
                 withIdentity(triggerKey).
                 startAt(DateBuilder.evenMinuteDate(new Date())). //DateBuilder.evenMinuteDate(new Date())  设置启动日期时间为启动时间的下一分钟。
@@ -205,6 +203,7 @@ public class QuartzJobTest {
                 withIdentity(triggerKey).
                 withSchedule(simpleScheduleBuilder).
                 startAt(DateBuilder.futureDate(1, DateBuilder.IntervalUnit.MINUTE)). //设置在一分钟后启动
+                endAt(DateBuilder.dateOf(0,0,0,31,12,2018)).//一直调度到 20171231凌晨。
                 build();
         //将任务和触发器注册到调度器中
         scheduler.scheduleJob(detail, trigger);
@@ -348,7 +347,7 @@ public class QuartzJobTest {
 
 
     /**
-     * 设置一个触发器，他是每隔三天在下午 20180112T15:47:50点触发; 并能监听scheduler
+     * 设置一个触发器，每隔三天在下午 20180112T15:47:50点触发; 并能监听scheduler
      */
     @Test
     public  void test3Day15Time() throws SchedulerException, InterruptedException {
@@ -379,12 +378,14 @@ public class QuartzJobTest {
         CalendarIntervalTrigger trigger = (CalendarIntervalTrigger) TriggerBuilder.newTrigger().
                 withIdentity(triggerKey).
                 withSchedule(builder).
-                startAt(DateBuilder.dateOf(15,47,50,12,1,2018)). //设置在启动后10秒后调用一次
+                startAt(DateBuilder.dateOf(15,47,50,12,1,2018)).
                 build();
         //将任务和触发器注册到调度器中
         scheduler.scheduleJob(detail, trigger);
         //加入监听Scheduler
         scheduler.getListenerManager().addSchedulerListener(new MyOtherSchedulerListener());
+        // 监听指定组的job
+        //scheduler.getListenerManager().addJobListener(null, GroupMatcher.groupEquals(""));
         //启动调度器
         scheduler.start();
         Thread.sleep(1000000);

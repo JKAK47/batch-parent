@@ -24,6 +24,7 @@
                                 <entry key="anotherBean" value-ref="anotherBean"/>
                         </map>
                 </property>
+                <!--设置作业是一个持久的作业，如果设置为false；那么作业生命周期将受触发器影响。 -->
                 <property name="durability" value="true"/>
                 <property name="group" value="jobDetail-jobname-group"/>
                 <property name="name" value="jobDetail-jobname"/>
@@ -65,24 +66,27 @@
         <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
                 <!-- 这里的JobDetail指的就是我们配置的作业任务的bean -->
                 <property name="jobDetail" ref="jobDetailFactoryBeanExample"/>
-                <!--cronExpression，cron表达式-->
-                <property name="cronExpression" value="0/5 * * ? * SAT-SUN"/>
+                <!--cronExpression，cron表达式； 工作日晚上19:05 开始 0，15,30,45 调用一次任务。-->
+                <property name="cronExpression" value="0/15 16 20 ? * MON-FRI"/>
         </bean>
         <!-- 第三步：配置Quartz 和Spring 集成后的 调度工厂配置； 组合JobDetails and triggers  -->
         <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
                 <property name="triggers">
                         <list>
-                                <ref bean="simpleTrigger"></ref>
+                                <ref bean="simpleTrigger"/>
                                 <ref  bean="cronTrigger"/>
                         </list>
                 </property>
                 <!-- 上面触发器已经关联了 任务Job, 所以这个调度器里面可以不用设置任务Job -->
-               <!-- <property name="jobDetails">
-                    <list>
-                        <ref bean="jobDetailFactoryBeanExample"/>
-                        <ref bean="methodInvokingJobDetailFactoryBeanExample"/>
-                    </list>
-                </property>-->
+                <!-- <property name="jobDetails">
+                     <list>
+                         <ref bean="jobDetailFactoryBeanExample"/>
+                         <ref bean="methodInvokingJobDetailFactoryBeanExample"/>
+                     </list>
+                 </property>-->
+                <!-- classpath* 前缀找不到文件 -->
+                <property name="configLocation" value="classpath:quartz.properties"/>
+
         </bean>
 </beans>
 
