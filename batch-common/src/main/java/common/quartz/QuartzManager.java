@@ -30,7 +30,7 @@ import org.quartz.impl.StdSchedulerFactory;
  * JobDetail任务细节
  * <p>
  * http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/tutorial-lesson-01.html
- * 本类是一个Quartz的管理类。
+ * 本类是一个对Quartz调度的的管理类。
  *
  * @author PengRong <br/>
  * @Description TODO(${END})
@@ -65,7 +65,7 @@ public class QuartzManager {
 		 */
 		public static void addCronJob(String jobName, Class cls, String cronExpression) {
 				try {
-						addCronJob(jobName, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME, cls, cronExpression);
+						addCronJob(jobName, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME, cls, null, cronExpression);
 				} catch (Exception e) {
 						e.printStackTrace();
 						throw new RuntimeException(e);
@@ -73,34 +73,37 @@ public class QuartzManager {
 		}
 
 		/**
-		 * 这个接口用于加入在指定时间调度执行任务,任务启动后五分钟后启动 </br>
+		 * 这个接口用于加入在指定时间调度执行任务,任务启动后立即启动 </br>
 		 *
 		 * @param jobName          任务Job名字</br>
 		 * @param jobGroupName     任务Job组名</br>
 		 * @param triggerName      触发器名字</br>
 		 * @param triggerGroupName 触发器组名</br>
 		 * @param jobClass         任务clasa</br>
+		 * @param jobdatamap       传递给job的参数</br>
 		 * @param cronExpression   Cron 表达式 参考官方文档</br>
 		 */
 		public static void addCronJob(String jobName, String jobGroupName,
-		                              String triggerName, String triggerGroupName, Class jobClass,
+		                              String triggerName, String triggerGroupName, Class jobClass, JobDataMap jobdatamap,
 		                              String cronExpression) {
 				try {
 						if (jobClass == null) {
 								throw new IllegalArgumentException("jobClass 参数不能为空.");
 						}
 						// 任务名，任务组，任务执行类
-						JobDetail jobDetail = JobBuilder.newJob()
+						JobBuilder jobBuilder = JobBuilder.newJob()
 										.withIdentity(jobName == null ? JOB_NAME : jobName, jobGroupName == null ? JOB_GROUP_NAME : jobGroupName)
-										.ofType(jobClass)
-										.build();
+										.ofType(jobClass);
+						if (Objects.nonNull(jobdatamap)) {
+								jobBuilder.setJobData(jobdatamap);
+						}
 						// CronTrigger 触发器
 						CronTrigger trigger = TriggerBuilder.newTrigger()
 										.withIdentity(triggerName == null ? TRIGGER_NAME : triggerName, triggerGroupName == null ? TRIGGER_GROUP_NAME : triggerGroupName)
-										.startAt(DateBuilder.futureDate(5, DateBuilder.IntervalUnit.MINUTE))
+										.startAt(DateBuilder.futureDate(0, DateBuilder.IntervalUnit.MINUTE))
 										.withSchedule(CronScheduleBuilder.cronSchedule(cronExpression))
 										.build();
-						sched.scheduleJob(jobDetail, trigger);
+						sched.scheduleJob(jobBuilder.build(), trigger);
 						// 启动调度器
 						if (!sched.isShutdown()) {
 								sched.start();
@@ -246,7 +249,7 @@ public class QuartzManager {
 		 * @param jobName        任务名
 		 * @param cronExpression cron表达式规则
 		 */
-		public static void modifyJobTime(String jobName,String triggerName, String cronExpression) {
+		public static void modifyJobTime(String jobName, String triggerName, String cronExpression) {
 				try {
 
 						CronTrigger trigger = (CronTrigger) sched.getTrigger(new TriggerKey(triggerName, TRIGGER_GROUP_NAME));
@@ -257,7 +260,7 @@ public class QuartzManager {
 						if (!oldTime.equalsIgnoreCase(cronExpression)) {
 								JobDetail jobDetail = sched.getJobDetail(new JobKey(jobName, JOB_GROUP_NAME));
 								Class objJobClass = jobDetail.getJobClass();
-								removeJob(jobName,triggerName);
+								removeJob(jobName, triggerName);
 								addCronJob(jobName, objJobClass, cronExpression);
 						}
 				} catch (Exception e) {
@@ -310,7 +313,7 @@ public class QuartzManager {
 		 */
 		public static void startJobs() {
 				try {
-						if (sched.isShutdown()){
+						if (sched.isShutdown()) {
 								sched.start();
 						}
 				} catch (Exception e) {
