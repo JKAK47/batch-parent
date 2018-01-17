@@ -8,7 +8,7 @@ import org.junit.Test;
 
 /** 
 * QuartzManager Tester. 
-* 
+* Quartz Manager 管理器测试类
 * @author <PengRong> 
 * @since  
 * @version 1.0 
@@ -32,7 +32,8 @@ public static void after() throws Exception {
 */ 
 @Test
 public void testAddCronJobForJobNameClsCronExpression() throws Exception {
-		QuartzManager.addCronJob("cron-job-demo-1", QuartzJob.class,"0/15 20 19 * ");
+		QuartzManager.addCronJob("cron-job-demo-1", QuartzJob.class,"0/15 50 22 * * ?");
+		Thread.sleep(100000);
 }
 
 /** 
