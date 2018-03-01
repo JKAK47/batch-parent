@@ -477,5 +477,6 @@
         <module>springmvcwebservice</module>
         <module>springmvcwebapp</module>
         <module>batch-mq</module>
+        <module>redisdemo</module>
     </modules>
 </project>

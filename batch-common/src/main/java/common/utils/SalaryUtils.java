@@ -35,7 +35,7 @@ public class SalaryUtils {
 		private static final String TAX_BASE = "3500";
 
 		public static void main(String[] args) {
-				System.out.println(defaultSalary("10000","1550","0"));
+				System.out.println(defaultSalary("11000","200","0"));
 		}
 
 		/**
