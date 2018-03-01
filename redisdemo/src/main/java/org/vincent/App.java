@@ -13,7 +13,7 @@ import redis.clients.jedis.Jedis;
 public class App 
 {
     private static  Jedis jedis;
-    private  static String HOST="112.74.63.132";
+    private  static String HOST="12.74.64.32";
     private  static int PORT=6379;
 
     public static void main( String[] args )
