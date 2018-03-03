@@ -35,11 +35,11 @@ public class SalaryUtils {
 		private static final String TAX_BASE = "3500";
 
 		public static void main(String[] args) {
-				System.out.println(defaultSalary("11000","200","0"));
+				System.out.println("实收工资 ="+defaultSalary("20000","0","0"));
 		}
 
 		/**
-		 * 计算薪水的默认方法
+		 * 计算税后薪水的默认方法
 		 * @param baseSalary 工资基数
 		 * @param bounty 需要缴税的津贴
 		 * @param butie 不需要缴税的津贴
@@ -70,18 +70,22 @@ public class SalaryUtils {
 				String unemployment_insurance_rate = map.get(SalaryUtils.UNEMPLOYMENT_INSURANCE_RATE);
 				/** 公积金费率 */
 				String common_reserve_funds_rate = map.get(SalaryUtils.COMMON_RESERVE_FUNDS_RATE);
-
+				System.out.println(String.format("开始计算税后工资，输入参数如下： 基础工资 = %s, 需缴税津贴 = %s, 养老金费率 =%s, 医疗保险费率 =%s, " +
+								"失业保险费率 = %s, 公积金费率 =%s.",baseSalary,bounty,pension_rate,medical_insurance_rate,unemployment_insurance_rate,common_reserve_funds_rate));
 
 				BigDecimal bigBaseSalary = new BigDecimal(baseSalary);
 				BigDecimal bigBounty = new BigDecimal(bounty);
 				SalaryBean bean = computewuxianyijin(bigBaseSalary, pension_rate, medical_insurance_rate, unemployment_insurance_rate, common_reserve_funds_rate);
 				/** 计算缴税 */
+
 				BigDecimal shui = conputteTax(bigBaseSalary, bigBounty, bean);
 				BigDecimal result = bigBaseSalary.add(bigBounty);
 				result = result.subtract(bean.getPension());
 				result = result.subtract(bean.getMedical_insurance());
 				result = result.subtract(bean.getUnemployment_insurance());
 				result = result.subtract(bean.getCommon_reserve_funds());
+				System.out.println(String.format("五险一金及缴税个人缴纳部分总费用 = %s",bean.getPension().add(bean.getMedical_insurance()).add(bean.getUnemployment_insurance()).add(bean.getCommon_reserve_funds()).add(shui)));
+				System.out.println(String.format("养老金 = %s, 医疗保险 = %s, 失业保险 = %s, 公积金 = %s, 缴税额 = %s.",bean.getPension(),bean.getMedical_insurance(),bean.getUnemployment_insurance(),bean.getCommon_reserve_funds(),shui));
 				return result.subtract(shui);
 
 
@@ -103,8 +107,11 @@ public class SalaryUtils {
 
 				result = result.subtract(new BigDecimal(TAX_BASE));
 				RateBean rate = getRateData(result);
+				System.out.println("应纳税所得额："+result+", 使用税率 = "+rate.getRate()+", 速算扣除数 = "+rate.getSusuan());
 				result = result.multiply(new BigDecimal(rate.getRate()));
-				return result.subtract(new BigDecimal(rate.getSusuan()));
+				BigDecimal shui=result.subtract(new BigDecimal(rate.getSusuan()));
+				System.out.println("缴税额："+shui);
+				return shui;
 		}
 
 		/**
