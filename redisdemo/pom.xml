@@ -24,7 +24,9 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis
+            Redis 客户端
+        -->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
