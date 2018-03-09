@@ -23,9 +23,11 @@
         http://www.cnblogs.com/linjiqin/archive/2013/06/14/3135248.html
      -->
     <bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+
     <!-- Redis 模版 */ -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connectionFactory-ref="redisConnectionFactory"
     p:enableTransactionSupport="true" p:keySerializer="stringSerializer"  />
+
     <bean id="redisConnectionFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
           p:usePool="true" p:hostName="${redis.ip}" p:port="${redis.port}" p:poolConfig-ref="jedisPoolConfig"/>

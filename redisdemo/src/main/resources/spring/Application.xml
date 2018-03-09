@@ -19,7 +19,7 @@
 
     <import resource="spring-redis.xml"/>
     <!-- 获取数据库配置属性， 这种方式配置的属性 不能再代码中获取。-->
-    <context:property-placeholder location="redis.properties"/>
+    <context:property-placeholder location="classpath:redis.properties"/>
 
     <!--
          本地参数设置配置文件
