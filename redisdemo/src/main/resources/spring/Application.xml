@@ -10,7 +10,7 @@
     <context:annotation-config />
 
     <!-- 配置要扫描的包 -->
-    <context:component-scan base-package="org.vincent"/>
+    <context:component-scan base-package="org.vincent" annotation-config="true"/>
     <!-- 该 BeanPostProcessor 将自动对标注 @Autowired 的 Bean 进行注入 -->
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 

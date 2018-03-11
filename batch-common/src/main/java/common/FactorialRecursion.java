@@ -19,10 +19,12 @@ public class FactorialRecursion {
      * @return
      */
     public static long factorial(long n) {
-        if (n == 1)
+        if (n == 1){
             return 1;
-        else
+        }
+        else{
             return n * factorial(n - 1);
+        }
     }
 
     /**
@@ -33,10 +35,12 @@ public class FactorialRecursion {
      * @return
      */
     public static long factorial(long n, long result) {
-        if (n == 1)
+        if (n == 1){
             return result;
-        else
+        }
+        else{
             return factorial(n - 1, n * result);
+        }
     }
 
 

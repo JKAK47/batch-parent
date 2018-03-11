@@ -1,44 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:p="http://www.springframework.org/schema/p" xmlns:cache="http://www.springframework.org/schema/cache"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-						http://www.springframework.org/schema/context
-						http://www.springframework.org/schema/context/spring-context-4.0.xsd
-						http://www.springframework.org/schema/aop
-						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-						http://www.springframework.org/schema/tx
-						http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-						http://www.springframework.org/schema/cache
-						http://www.springframework.org/schema/cache/spring-cache-4.0.xsd
-						http://www.springframework.org/schema/mvc
-						http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"
+						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
        default-autowire="byName" default-lazy-init="false">
 
     <description>RedisDemo 配置</description>
     <!-- http://www.cnblogs.com/huskyking/p/6004772.html
         http://www.cnblogs.com/linjiqin/archive/2013/06/14/3135248.html
      -->
+
+    <!-- Redis + Spring date 集成 模版  开始 -->
     <bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-
-    <!-- Redis 模版 */ -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connectionFactory-ref="redisConnectionFactory"
-    p:enableTransactionSupport="true" p:keySerializer="stringSerializer"  />
-
+    p:enableTransactionSupport="true" p:keySerializer-ref="stringSerializer" >
+        <property name="hashKeySerializer"> <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/></property>
+        <property name="valueSerializer"><bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" /></property>
+        <property name="hashValueSerializer"  ><bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" /></property>
+    </bean>
+    <!-- 对String的操作进行封装 -->
+    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="redisConnectionFactory"></property>
+    </bean>
     <bean id="redisConnectionFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
           p:usePool="true" p:hostName="${redis.ip}" p:port="${redis.port}" p:poolConfig-ref="jedisPoolConfig"/>
+    <!-- Redis + Spring date 集成 模版  结束 -->
 
+    <!-- 下面这些配置就可以直接通过 获取 jedisPool 去操作redis数据库了。
+        redis 配置开始
+    -->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="${redis.pool.maxTotal}" />
+        <property name="minIdle" value="${redis.pool.minIdle}"/>
         <property name="maxIdle" value="${redis.pool.maxIdle}" />
         <property name="maxWaitMillis" value="${redis.pool.maxWait}" />
         <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
     </bean>
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+        <constructor-arg name="host" value="${redis.ip}"/>
+        <constructor-arg name="port" value="${redis.port}" type="int"/>
+    </bean>
+    <!-- redis 配置结束 -->
 
+    <!-- 自定义Redis 配置类，将Redis 所有需要的配置 -->
+    <bean id="redisConfig" class="org.vincent.RedisConfig" >
+        <property name="maxTotal" value="${redis.pool.maxTotal}" />
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="maxWait" value="${redis.pool.maxWait}" />
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
+        <property name="RedisIp" value="${redis.ip}"/>
+        <property name="RedisPort" value="${redis.port}"/>
+    </bean>
    <!-- &lt;!&ndash; 将session放入redis &ndash;&gt;
     <bean id="redisHttpSessionConfiguration"
           class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">

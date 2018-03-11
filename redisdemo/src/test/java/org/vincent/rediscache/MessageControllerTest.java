@@ -1,9 +1,6 @@
 package org.vincent.rediscache;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-/** 
+/**
 * MessageController Tester. 
 * 
 * @author <PengRong>
@@ -11,12 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 * @version 1.0 
 */
 
-@SpringBootApplication
+//@SpringBootApplication
 public class MessageControllerTest {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(MessageControllerTest.class, args);
+       // SpringApplication.run(MessageControllerTest.class, args);
     }
 
 
