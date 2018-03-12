@@ -20,16 +20,9 @@ public class App
 
         test();
     }
-
-
-
-
-
-
     /**
      * 排序
      */
-
     public static  void test(){
         jedis.del("number");//先删除数据，再进行测试
         jedis.rpush("number","4");//将一个或多个值插入到列表的尾部(最右边)

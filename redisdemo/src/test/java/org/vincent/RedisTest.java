@@ -8,7 +8,6 @@ import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,8 +31,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		private JedisPool jedisPool;
 		@Autowired
 		private RedisConfig redisConfig;
-		@Autowired
-		private StringRedisTemplate stringRedisTemplate;
+
 
 		/**
 		 * 使用spring + redis 集成
@@ -49,7 +47,6 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				System.out.println("");
 				System.out.println(jedisPool.getResource().ping());
 				System.out.println(redisConfig);
-				System.out.println(stringRedisTemplate);
 		}
 
 		/**
@@ -58,11 +55,11 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		@Test
 		public void testJedis() {
 				Jedis jedis = jedisPool.getResource();
-				//testString(jedis);
+				testString(jedis);
 				//testMap(jedis);
 				//testList(jedis);
 				//testSet(jedis);
-				testzadd(jedis);
+				//testzadd(jedis);
 		}
 
 		/**
@@ -114,10 +111,12 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				jedis.lpush("javaFramework", "springMVC");
 				jedis.lpush("javaFramework", "mybatis");
 				jedis.lpush("javaFramework", "mybatis");
+				jedis.lpop("javaFramework");// 从列表左侧弹出元素。
+				jedis.lindex("javaFramework",1);// 使用lindex 命令获取到指定索引下标的值。
+				//jedis.llen获取长度，-1表示取得所有
+				System.out.println("长度:" + jedis.llen("javaFramework"));
 				//取出所有数据,jedis.lrange是按范围取出
 				//第一个是key，第二个是起始位置，第三个是结束位置
-				System.out.println("长度:" + jedis.llen("javaFramework"));
-				//jedis.llen获取长度，-1表示取得所有
 				System.out.println("javaFramework:" + jedis.lrange("javaFramework", 0, -1));
 
 				jedis.del("javaFramework");
@@ -167,6 +166,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		 * @param jedis
 		 */
 		public void testString(Jedis jedis) {
+				jedis.set("num",String.valueOf(20));
 				//添加String数据
 				jedis.set("name", "chx"); //key为name放入value值为chx
 				System.out.println("拼接前:" + jedis.get("name"));//读取key为name的值
