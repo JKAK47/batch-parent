@@ -55,8 +55,8 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		@Test
 		public void testJedis() {
 				Jedis jedis = jedisPool.getResource();
-				testString(jedis);
-				//testMap(jedis);
+				//testString(jedis);
+				testMap(jedis);
 				//testList(jedis);
 				//testSet(jedis);
 				//testzadd(jedis);
@@ -73,6 +73,8 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 			jedis.zadd("zadd-demo",2,"PHP");
 			jedis.zadd("zadd-demo",3,"C#");
 			Set<String> ValueSet = jedis.zrangeByScore("zadd-demo",0,10);
+			/** 删除有序集合中元素*/
+			jedis.zrem("zadd-demo","java");
 			System.out.println(ValueSet);
 		}
 
