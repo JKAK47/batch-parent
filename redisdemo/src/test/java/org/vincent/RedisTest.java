@@ -73,6 +73,8 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 			jedis.zadd("zadd-demo",2,"PHP");
 			jedis.zadd("zadd-demo",3,"C#");
 			Set<String> ValueSet = jedis.zrangeByScore("zadd-demo",0,10);
+			double score = jedis.zscore("zadd-demo","PHP");//获取一个元素成员对应的Score.
+			jedis.zincrby("zadd-demo",1,"PHP");//尝试 给有序字符串集合，成员对应的score添加指定分值。
 			/** 删除有序集合中元素*/
 			jedis.zrem("zadd-demo","java");
 			System.out.println(ValueSet);
@@ -142,7 +144,9 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				//第一个参数是存入redis中map对象的key，后面跟的是放入map数据中的的key，后面的key是可变参数
 				List<String> list = jedis.hmget("user", "name", "age", "email");
 				System.out.println(list);
-
+				jedis.hincrBy("user","age",30);
+				/** 给散列存储的键值对中值进行自增操作 */
+				System.out.println("age = "+jedis.hget("user","age"));
 				//删除map中的某个键值对
 				jedis.hdel("user", "age");
 				System.out.println("age:" + jedis.hmget("user", "age")); //因为删除了，所以返回的是null
