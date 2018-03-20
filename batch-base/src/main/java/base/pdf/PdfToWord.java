@@ -12,7 +12,9 @@ import java.io.Writer;
 /**
  * batch-parent.base.pdf <br/>
  * Created by PengRong on 2018/3/19. <br/>
- *
+ *http://www.printmyfolders.com/Home/PDFBox-Tutorial
+ * https://www.tutorialkart.com/apache-pdfbox-tutorial/
+ * http://java.worldbestlearningcenter.com/2013/07/word-to-pdf-converter.html
  * @author PengRong <br/>
  * @Description TODO(${END})
  * @ClassName: ${CLASS}
@@ -20,13 +22,20 @@ import java.io.Writer;
  */
 public class PdfToWord {
     public static void main(String[] args) throws IOException {
-        //PDFBox box=null;
-        File pdfFile= new File("D:\\Dev\\WorkStation\\IdeaProjects\\batch-parent\\batch-base\\src\\main\\resources\\pdf/冠珠卫浴小画册-第二部份(浴室柜淋浴房浴缸龙头花洒11-30)转曲.pdf");
-        PDDocument document=null;
+        //定义文件路径，路径是相对于classpath
+        String filePath="/pdf/123.pdf";
+        String outputfile="";
+        //获取文件的全路径，CLASSPATH + filePath.
+        filePath=PdfToWord.class.getResource(filePath).getFile();
+        File pdfFile= new File(filePath);
         PDDocument doc=PDDocument.load(pdfFile);
         int pagenumber=doc.getNumberOfPages();
         System.out.print("pages"+pagenumber);
-        FileOutputStream fos=new FileOutputStream("D:\\Dev\\WorkStation\\IdeaProjects\\batch-parent\\batch-base\\src\\main\\resources\\pdf/123.doc");
+
+        if (pdfFile.isFile() && (!pdfFile.isDirectory()))
+            outputfile = pdfFile.getParent();//获取到目录
+        String name= outputfile+"/"+"123.doc";
+        FileOutputStream fos=new FileOutputStream(name);
         Writer writer=new OutputStreamWriter(fos,"UTF-8");
         PDFTextStripper stripper=new PDFTextStripper();
         stripper.setSortByPosition(true);//排序

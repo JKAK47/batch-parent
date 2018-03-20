@@ -139,7 +139,10 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				map.put("name", "chx");
 				map.put("age", "100");
 				map.put("email", "***@outlook.com");
+				/** Hash 添加多个键值对 */
 				jedis.hmset("user", map);
+				/** hash 添加一个键值对 */
+				jedis.hset("user","company","PCLC");
 				//取出user中的name，结果是一个泛型的List
 				//第一个参数是存入redis中map对象的key，后面跟的是放入map数据中的的key，后面的key是可变参数
 				List<String> list = jedis.hmget("user", "name", "age", "email");
