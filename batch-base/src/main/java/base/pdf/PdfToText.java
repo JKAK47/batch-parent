@@ -16,32 +16,37 @@ import java.io.Writer;
  * https://www.tutorialkart.com/apache-pdfbox-tutorial/
  * http://java.worldbestlearningcenter.com/2013/07/word-to-pdf-converter.html
  * @author PengRong <br/>
- * @Description TODO(${END})
+ * @Description 获取pdf文档的文档文字内容
  * @ClassName: ${CLASS}
  * @since 2018-03-19 13:34 <br/>
  */
-public class PdfToWord {
+public class PdfToText {
     public static void main(String[] args) throws IOException {
         //定义文件路径，路径是相对于classpath
         String filePath="/pdf/123.pdf";
         String outputfile="";
         //获取文件的全路径，CLASSPATH + filePath.
-        filePath=PdfToWord.class.getResource(filePath).getFile();
+        filePath=PdfToText.class.getResource(filePath).getFile();
         File pdfFile= new File(filePath);
+        //Load PDF Byte to PDDocument
         PDDocument doc=PDDocument.load(pdfFile);
         int pagenumber=doc.getNumberOfPages();
         System.out.print("pages"+pagenumber);
 
-        if (pdfFile.isFile() && (!pdfFile.isDirectory()))
+        if (pdfFile.isFile() && (!pdfFile.isDirectory())){
             outputfile = pdfFile.getParent();//获取到目录
+        }
         String name= outputfile+"/"+"123.doc";
         FileOutputStream fos=new FileOutputStream(name);
         Writer writer=new OutputStreamWriter(fos,"UTF-8");
+        //pdf文档文字读取器，忽略所有文字格式和文本位置
         PDFTextStripper stripper=new PDFTextStripper();
         stripper.setSortByPosition(true);//排序
         stripper.setStartPage(3);//设置转换的开始页
         stripper.setEndPage(7);//设置转换的结束页
         stripper.writeText(doc,writer);
+        String text=stripper.getText(doc);
+        System.out.println(text);
         writer.close();
         doc.close();
     }
