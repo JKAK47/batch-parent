@@ -15,7 +15,7 @@
         <context:component-scan base-package="com.imodule" />  -->
     <!--<context:component-scan base-package="com.generated.lifepro" />-->
 
-    <!-- 引入资源 MQ配置资源 -->
+    <!-- 引入资源 MQ配置资源文件 -->
    <import resource="spring-mq.xml" />
 
     <!--   	<import resource="hydra-config.xml"/> -->
@@ -23,8 +23,16 @@
     <import resource="spring-batch.xml"/>
     <import resource="dubbo-consumer.xml"/> -->
     <!-- 获取 MQ 配置属性 -->
-   <context:property-placeholder location="config.properties"/>
-
+   <context:property-placeholder location="classpath:config.properties"/>
+   <!-- <bean id="propertyBean"
+          class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="locations">
+            <array>
+                <value>classpath:config.properties</value>
+            </array>
+        </property>
+    </bean>-->
 
 </beans>
 

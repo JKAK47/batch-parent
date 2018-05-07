@@ -10,7 +10,8 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.vincent.mq.queue.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.vincent.mq.queue.MqConfigConstants;
 
 /**
  * @Package: org.vincent.mq.topic <br/>
@@ -24,7 +25,8 @@ import org.vincent.mq.queue.Constants;
  * @Created by PengRong on 2017/12/31. <br/>
  */
 public class MyTopicMessageProducer implements Runnable {
-
+		@Autowired
+		MqConfigConstants mqConfigConstants;
 		private ConnectionFactory factory;
 
 		/**
@@ -43,14 +45,14 @@ public class MyTopicMessageProducer implements Runnable {
 				System.out.println("topic 消息类型开始产生消息 " + "生产者: " + Thread.currentThread().getName());
 				try {
 						/**第一步 创建连接工厂*/
-						factory = new ActiveMQConnectionFactory(Constants.USERNAME, Constants.PASSWORD, Constants.BROKEURL);
+						factory = new ActiveMQConnectionFactory(MqConfigConstants.USERNAME, MqConfigConstants.PASSWORD, MqConfigConstants.BROKEURL);
 						/**第二步 创建JMS 连接*/
 						Connection connection = factory.createConnection();
 						connection.start();
 						/** 创建Session,开启事务 */
 						Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
 						/** 创建topic,Topic是 Destination接口的子接口*/
-						Topic topic = session.createTopic(Constants.TopicName);
+						Topic topic = session.createTopic(mqConfigConstants.TopicName);
 						/** 创建生产者producer */
 						MessageProducer producer = session.createProducer(topic);
 

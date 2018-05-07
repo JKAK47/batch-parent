@@ -14,6 +14,7 @@ import org.junit.Test;
  */
 public class JMSProducerTest {
 
+
     @Before
     public void before() throws Exception {
     }
@@ -31,7 +32,7 @@ public class JMSProducerTest {
         for (int i=0; i<10;i++ ){
             pool.addTask(new JMSProducer());
         }
-        Thread.sleep(100000);
+        Thread.sleep(10000);
     }
 
 

@@ -14,6 +14,7 @@ import org.junit.Test;
  */
 public class JMSConsumerTest {
 
+
     @Before
     public void before() throws Exception {
     }
@@ -29,8 +30,10 @@ public class JMSConsumerTest {
     public void testRun() throws Exception {
         SimpleFixedThreadPool pool=new SimpleFixedThreadPool();
         pool.addTask(new JMSConsumer());
-        Thread.sleep(100000);
+        Thread.sleep(10000);
     }
+
+
 
 
 } 

@@ -9,7 +9,8 @@ import javax.jms.Session;
 import javax.jms.Topic;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
-import org.vincent.mq.queue.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.vincent.mq.queue.MqConfigConstants;
 
 
 /**
@@ -27,7 +28,8 @@ import org.vincent.mq.queue.Constants;
 public class MyTopicMessageConsumer implements Runnable {
 
 		private Logger logger = LoggerFactory.getLogger();
-
+		@Autowired
+		MqConfigConstants mqConfigConstants;
 		/**
 		 * When an object implementing interface <code>Runnable</code> is used
 		 * to create a thread, starting the thread causes the object's
@@ -44,14 +46,14 @@ public class MyTopicMessageConsumer implements Runnable {
 				try {
 						logger.info("消費者(" + Thread.currentThread().getName() + ")開始接受信息： ");
 						//创建连接工厂类
-						ConnectionFactory factory = new ActiveMQConnectionFactory(Constants.USERNAME, Constants.PASSWORD, Constants.BROKEURL);
+						ConnectionFactory factory = new ActiveMQConnectionFactory(MqConfigConstants.USERNAME, MqConfigConstants.PASSWORD, MqConfigConstants.BROKEURL);
 						// 创建JMS连接实例，并启动连接
 						Connection connection = factory.createConnection();
 						connection.start();
 						//创建Session 对象
 						Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
 						//创建主题，消费者消费主题 必须和消息产生者产生的主题一致。
-						Topic topic = session.createTopic(Constants.TopicName);
+						Topic topic = session.createTopic(mqConfigConstants.TopicName);
 						// 创建消费者
 						MessageConsumer consumer = session.createConsumer(topic);
 						// 消费者 异步消息生产者生成的消息

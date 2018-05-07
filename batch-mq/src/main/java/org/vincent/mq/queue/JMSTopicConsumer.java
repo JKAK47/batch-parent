@@ -18,7 +18,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
  * @ClassName: ${CLASS}
  * @since 2017-12-29 17:15 <br/>
  */
-public class JMSConsumer implements Runnable{
+public class JMSTopicConsumer implements Runnable{
 
     @Override
     public void run() {
@@ -42,15 +42,13 @@ public class JMSConsumer implements Runnable{
             connection.start();
             //第三步，创建session，读取消息不开启事务
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            //第四步，创建一个连接HelloWorld的消息队列，接受者消息队列名称 必须和发送者的的消息队列名字一致；如果不一致那么消费者将一直阻塞。
-            destination = session.createQueue(MqConfigConstants.QueueName);
+            //第四步，创建一个Topic
+            destination = session.createTopic(MqConfigConstants.TopicName);
             //第五步，创建消息消费者
             messageConsumer = session.createConsumer(destination);
-
             while (true) {
                 TextMessage textMessage = (TextMessage) messageConsumer.receive(100000);
                 if (textMessage != null) {
-                    //通知消息队列，消费者已消费了这条消息，可以从消息队列把这条消息删除；防止多个消息接受者接受到同一个消息。
                     textMessage.acknowledge();
                     System.out.println("收到的消息:" + textMessage.getText());
                 } else {

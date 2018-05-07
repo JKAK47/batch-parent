@@ -1,6 +1,8 @@
-package org.vincent.mq.queue;
+package org.vincent.mq.spring;
 
 import org.apache.activemq.ActiveMQConnection;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @Package: org.vincent.mq.queue <br/>
@@ -13,8 +15,8 @@ import org.apache.activemq.ActiveMQConnection;
  * @Modified By: <br/>
  * @Created by PengRong on 2017/12/31. <br/>
  */
-
-public class Constants {
+@Component("mqConfigConstants")
+public class MqConfigConstants {
 		/** 默认连接用户名 */
 		public static final String USERNAME = ActiveMQConnection.DEFAULT_USER;
 		/** 默认连接密码 */
@@ -24,7 +26,10 @@ public class Constants {
 		/**发送的消息数量*/
 		public static final int SENDNUM = 10;
 		/** 队列名字 */
-		public static final  String TopicName="topic.Vincent";
+		@Value("${topicName}")
+		public   final  String TopicName="topic.Vincent";
 		/** 主题名字 */
-		public static final  String QueueName="org.Vincent";
+		@Value("${queueName}")
+		public   String QueueName="quenu.vincent" ;
+
 }

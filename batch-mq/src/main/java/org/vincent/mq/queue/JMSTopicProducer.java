@@ -20,7 +20,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
  * @since 2017-12-29 14:17 <br/>
  */
 
-public class JMSProducer implements  Runnable{
+public class JMSTopicProducer implements  Runnable{
     /**
      * 发送文本消息
      * @param session
@@ -58,8 +58,8 @@ public class JMSProducer implements  Runnable{
             connection.start();
             //创建session，开启事务
             session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
-            //创建一个名称为Vincent的消息队列，消息队列是消息生产者以及消费者共同拥有的一个结构
-            destination = session.createQueue(MqConfigConstants.QueueName);
+            //创建一个Topic,
+            destination = session.createTopic(MqConfigConstants.TopicName);
             //创建消息生产者
             messageProducer = session.createProducer(destination);
             // 设置消息不需要持久化
