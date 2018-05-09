@@ -44,7 +44,7 @@ public class JMSProducer implements  Runnable{
         //连接
         Connection connection = null;
         //会话 接受或者发送消息的线程
-        Session session;
+        Session session=null;
         //消息的目的地
         Destination destination;
         //消息生产者
@@ -72,6 +72,13 @@ public class JMSProducer implements  Runnable{
         } catch (Exception e) {
             e.printStackTrace();
         }finally{
+            if(session!=null){
+                try {
+                    session.close();
+                } catch (JMSException e) {
+                    e.printStackTrace();
+                }
+            }
             if(connection != null){
                 try {
                     connection.close();
