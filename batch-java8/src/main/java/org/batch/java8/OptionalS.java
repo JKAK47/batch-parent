@@ -16,6 +16,7 @@ import java.util.Optional;
  */
 public class OptionalS {
     public static void main(String[] args) {
+
         // ofNullable 方法会进行判定，参数是否为空，如果为Null，那么生成EMPTY空的optional对象；
         //不为空 则生成为value 指定值的的Optional 对象。
         Optional<String> optional = Optional.ofNullable(null);
