@@ -24,7 +24,7 @@ import javax.tools.Diagnostic;
  * @Created by PengRong on 2018/5/26. <br/>
  *
  *
- * 给MethodInfo注解添加处理器  ，暂时还没有发现问题。
+ * 给MethodInfo注解添加处理器  ，暂时还没有发现怎么让这个注解处理器调用起来。
  *
  */
 @SupportedAnnotationTypes(value = {"org.batch.java8.annotation.MethodInfo"})
