@@ -34,29 +34,30 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 
 
 		/**
-		 * 使用spring + redis 集成
+		 * 使用 spring data + redis 集成
 		 */
 		@Autowired
 		private OrderDao orderDao;
 
 		/**
-		 * 测试Redis配置类是否能自动注入
+		 * 测试Redis配置类是否能自动注入以及redis 连通性
 		 */
 		@Test
 		public void testRedisConfig() {
 				System.out.println("");
-				System.out.println(jedisPool.getResource().ping());
+				Jedis jedis=jedisPool.getResource();
+				System.out.println(jedis.ping());
 				System.out.println(redisConfig);
 		}
 
 		/**
-		 * 通过jedis 访问redis 数据库
+		 * 通过jedis 访问redis kv 存储
 		 */
 		@Test
 		public void testJedis() {
 				Jedis jedis = jedisPool.getResource();
-				//testString(jedis);
-				testMap(jedis);
+				testString(jedis);
+				//testMap(jedis);
 				//testList(jedis);
 				//testSet(jedis);
 				//testzadd(jedis);
@@ -139,7 +140,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				map.put("name", "chx");
 				map.put("age", "100");
 				map.put("email", "***@outlook.com");
-				/** Hash 添加多个键值对 */
+				/** user 作为key.  Hash 添加多个键值对 */
 				jedis.hmset("user", map);
 				/** hash 添加一个键值对 */
 				jedis.hset("user","company","PCLC");
@@ -171,6 +172,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 
 		/**
 		 * 测试字符串类型数据
+		 * k - v 都是string类型
 		 *
 		 * @param jedis
 		 */
@@ -198,7 +200,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		 * 通过Redis Dao 对Redis数据库进行增删改查
 		 */
 		@Test
-		public void saveTest() {
+		public void saveOrderTest() {
 				Order order = new Order();
 				order.setId("3");
 				order.setPrice(40);

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Package: org.vincent.order <br/>
- * @Description： TODO <br/>
+ * @Description： 基于redis template 封装的 redis dao层， 对Order 类型 实例进行增删查操作. <br/>
  * @author: PengRong <br/>
  * @Date: Created in 2018/3/11 1:37 <br/>
  * @Company: PLCC <br/>

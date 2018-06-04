@@ -16,10 +16,10 @@
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 
 
-    <!-- 引入资源 redis -->
+    <!-- 引入 redis 配置资源文件-->
 
     <import resource="spring-redis.xml"/>
-    <!-- 获取数据库配置属性， 这种方式配置的属性 不能再代码中获取。-->
+    <!-- 获取数据库配置属性-->
     <context:property-placeholder location="classpath:redis.properties"/>
 
     <!--

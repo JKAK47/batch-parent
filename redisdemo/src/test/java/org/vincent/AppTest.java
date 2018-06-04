@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,10 +24,6 @@ public class AppTest
     @Autowired
     @Qualifier("redisTemplate")
     private RedisTemplate<String, String> Jedistemplate;
-
-   /* @Autowired
-    @Qualifier("redisTemplate")
-    private ValueOperations<String,Object> vOps;*/
     /**
      * Create the test case
      *
@@ -38,14 +32,11 @@ public class AppTest
     @Test
     public void  AppTest( String testName )
     {
-        Jedistemplate.execute(new RedisCallback<Boolean>() {
-            @Override
-            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-                byte [] key = "tempkey".getBytes();
-                byte[] value = "tempvalue".getBytes();
-                connection.set(key, value);
-                return true;
-            }
+        Jedistemplate.execute((RedisCallback<Boolean>) connection -> {
+            byte [] key = "tempkey".getBytes();
+            byte[] value = "tempvalue".getBytes();
+            connection.set(key, value);
+            return true;
         });
     }
 

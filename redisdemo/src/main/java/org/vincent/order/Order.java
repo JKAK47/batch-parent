@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @Package: org.vincent.order <br/>
- * @Description： TODO <br/>
+ * @Description： [普通工程集成](https://my.oschina.net/u/2312022/blog/741502?utm_medium=referral) <br/>
  * @author: PengRong <br/>
  * @Date: Created in 2018/3/11 1:36 <br/>
  * @Company: PLCC <br/>

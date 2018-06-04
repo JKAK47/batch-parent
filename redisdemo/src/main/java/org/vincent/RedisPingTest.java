@@ -4,9 +4,11 @@ import redis.clients.jedis.Jedis;
 
 /**
  * Java 操作Redis 简单操作之 Hello world!。
+ * 根据redis实例 的ip地址以及端口连接测试联通性。不需要配置文件以及其他任何依赖，除了 redis.clients
  *
  */
-public class App 
+public class RedisPingTest
+
 {
     private static  Jedis jedis;
     private  static String HOST="112.74.63.132";
