@@ -56,15 +56,15 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		@Test
 		public void testJedis() {
 				Jedis jedis = jedisPool.getResource();
-				testString(jedis);
-				//testMap(jedis);
+				//testString(jedis);
+				testMap(jedis);
 				//testList(jedis);
 				//testSet(jedis);
 				//testzadd(jedis);
 		}
 
 		/**
-		 * 用于有序字符串集合（zadd 命令）
+		 * 用于有序字符串集合（zadd 命令）有序的集合set
 		 * @param jedis
 		 */
 		public void testzadd(Jedis jedis) {
@@ -101,7 +101,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				System.out.println("chx是否是user中的元素:" + jedis.sismember("user", "chx"));//判断chx是否是user集合中的元素
 				System.out.println("集合中的一个随机元素:" + jedis.srandmember("user"));//返回集合中的一个随机元素
 				System.out.println("user中元素的个数:" + jedis.scard("user"));
-				jedis.del("user");
+				jedis.del("user");//删除集合元素
 		}
 
 		/**
@@ -142,7 +142,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				map.put("email", "***@outlook.com");
 				/** user 作为key.  Hash 添加多个键值对 */
 				jedis.hmset("user", map);
-				/** hash 添加一个键值对 */
+				/** hash 添加一个键值对, value 部分添加一个新的键值对 */
 				jedis.hset("user","company","PCLC");
 				//取出user中的name，结果是一个泛型的List
 				//第一个参数是存入redis中map对象的key，后面跟的是放入map数据中的的key，后面的key是可变参数
@@ -182,7 +182,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				jedis.set("name", "chx"); //key为name放入value值为chx
 				System.out.println("拼接前:" + jedis.get("name"));//读取key为name的值
 
-				//向key为name的String 值后面加上数据 ---拼接
+				//向key为name的String 值后面加上数据 ---拼接，如果key不存在就新增一个K-V
 				jedis.append("name", " is my name;");
 				System.out.println("拼接后:" + jedis.get("name"));
 
@@ -191,6 +191,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				System.out.println("删除key = name 后:" + jedis.get("name"));
 
 				//设置多个字符串键值对,mset 如果遇到key已经存在，那么将用新的值替换现有旧的值。
+				// kv 设置多个字符串类型的键值对
 				jedis.mset("name", "chenhaoxiang", "age", "20", "email", "chxpostbox@outlook.com");
 				jedis.incr("age");//用于将键的整数值递增1。如果键不存在，则在执行操作之前将其设置为0。 如果键包含错误类型的值或包含无法表示为整数的字符串，则会返回错误。此操作限于64位有符号整数。
 				System.out.println(jedis.get("name") + " " + jedis.get("age") + " " + jedis.get("email"));
