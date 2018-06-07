@@ -41,6 +41,8 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 
 		/**
 		 * 测试Redis配置类是否能自动注入以及redis 连通性
+		 *
+		 * 使用了springdata 软件库
 		 */
 		@Test
 		public void testRedisConfig() {
@@ -56,11 +58,14 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		@Test
 		public void testJedis() {
 				Jedis jedis = jedisPool.getResource();
+				// kv 是字符串
 				//testString(jedis);
-				testMap(jedis);
+				// k v 值是map
+				//testMap(jedis);
+				// kv 值是列表
 				//testList(jedis);
 				//testSet(jedis);
-				//testzadd(jedis);
+				testzadd(jedis);
 		}
 
 		/**
@@ -73,21 +78,28 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 			jedis.zadd("zadd-demo",1,"C++");
 			jedis.zadd("zadd-demo",2,"PHP");
 			jedis.zadd("zadd-demo",3,"C#");
+			//下面这天指令将覆盖上面指令给C3设置的score，设置为4
+			jedis.zadd("zadd-demo",4,"C#");
+			//设置该有序字符串set的过期时间
+			jedis.expireAt("zadd-demo",5);
+			jedis.pexpire("zadd-demo",5);
+			jedis.expire("zadd-demo",5);
+			jedis.rename("zadd-demo","zadd");
 			Set<String> ValueSet = jedis.zrangeByScore("zadd-demo",0,10);
 			double score = jedis.zscore("zadd-demo","PHP");//获取一个元素成员对应的Score.
-			jedis.zincrby("zadd-demo",1,"PHP");//尝试 给有序字符串集合，成员对应的score添加指定分值。
+			jedis.zincrby("zadd-demo",10,"PHP");//尝试 给有序字符串集合，对应成员的score添加指定分值。
 			/** 删除有序集合中元素*/
 			jedis.zrem("zadd-demo","java");
 			System.out.println(ValueSet);
 		}
 
 		/**
-		 * jedis操作Set（字符串集合, 元素无序，元素不可重复）
+		 * jedis操作Set（字符串的无序集合, 元素无序，元素不可重复）
 		 */
 
 		public void testSet(Jedis jedis) {
 				jedis.del("user");
-				//添加
+				//添加元素，如果值一致将去重
 				jedis.sadd("user", "chenhaoxiang");
 				jedis.sadd("user", "hu");
 				jedis.sadd("user", "chen");
@@ -130,19 +142,20 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		}
 
 		/**
-		 * 测试Hash 类型数据； key 为一个字符串类型； value 部分为一个map类型数据
+		 * 测试Hash 类型数据； key 为一个字符串类型； value 部分为一个map类型数据,特别适合用于
+		 * 存储对象这类
 		 *
 		 * @param jedis
 		 */
 		public void testMap(Jedis jedis) {
 				//添加数据
-				Map<String, String> map = new HashMap<String, String>();
+				Map<String, String> map = new HashMap<>();
 				map.put("name", "chx");
 				map.put("age", "100");
 				map.put("email", "***@outlook.com");
 				/** user 作为key.  Hash 添加多个键值对 */
 				jedis.hmset("user", map);
-				/** hash 添加一个键值对, value 部分添加一个新的键值对 */
+				/**给指定的key 在添加一个 hash 键值对, value 部分添加一个新的键值对 */
 				jedis.hset("user","company","PCLC");
 				//取出user中的name，结果是一个泛型的List
 				//第一个参数是存入redis中map对象的key，后面跟的是放入map数据中的的key，后面的key是可变参数
@@ -151,7 +164,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				jedis.hincrBy("user","age",30);
 				/** 给散列存储的键值对中值进行自增操作 */
 				System.out.println("age = "+jedis.hget("user","age"));
-				//删除map中的某个键值对
+				// 删除map中的某个键值对，
 				jedis.hdel("user", "age");
 				System.out.println("age:" + jedis.hmget("user", "age")); //因为删除了，所以返回的是null
 				System.out.println("user的键中存放的值的个数:" + jedis.hlen("user")); //返回key为user的map数据中存放的键值对个数2
@@ -172,7 +185,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 
 		/**
 		 * 测试字符串类型数据
-		 * k - v 都是string类型
+		 * k - v 都是string类型，这个
 		 *
 		 * @param jedis
 		 */
@@ -193,7 +206,9 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				//设置多个字符串键值对,mset 如果遇到key已经存在，那么将用新的值替换现有旧的值。
 				// kv 设置多个字符串类型的键值对
 				jedis.mset("name", "chenhaoxiang", "age", "20", "email", "chxpostbox@outlook.com");
-				jedis.incr("age");//用于将键的整数值递增1。如果键不存在，则在执行操作之前将其设置为0。 如果键包含错误类型的值或包含无法表示为整数的字符串，则会返回错误。此操作限于64位有符号整数。
+				//用于一次当所有key都不存在时候设置多个k-v键值对。
+				jedis.msetnx("key1","PLCC","Key2","20180607");
+				jedis.incr("age");//用于将键对应的值整数递增1。如果键不存在，则在执行操作之前将其设置为0。 如果键包含错误类型的值或包含无法表示为整数的字符串，则会返回错误。此操作限于64位有符号整数。
 				System.out.println(jedis.get("name") + " " + jedis.get("age") + " " + jedis.get("email"));
 		}
 
