@@ -1,5 +1,6 @@
 package org.vincent;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -63,9 +64,9 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				// k v 值是map
 				//testMap(jedis);
 				// kv 值是列表
-				//testList(jedis);
+				testList(jedis);
 				//testSet(jedis);
-				testzadd(jedis);
+				//testzadd(jedis);
 		}
 
 		/**
@@ -136,7 +137,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				//第一个是key，第二个是起始位置，第三个是结束位置
 				System.out.println("javaFramework:" + jedis.lrange("javaFramework", 0, -1));
 
-				jedis.del("javaFramework");
+				//jedis.del("javaFramework");
 				System.out.println("删除后长度:" + jedis.llen("javaFramework"));
 				System.out.println(jedis.lrange("javaFramework", 0, -1));
 		}
@@ -208,6 +209,7 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 				jedis.mset("name", "chenhaoxiang", "age", "20", "email", "chxpostbox@outlook.com");
 				//用于一次当所有key都不存在时候设置多个k-v键值对。
 				jedis.msetnx("key1","PLCC","Key2","20180607");
+
 				jedis.incr("age");//用于将键对应的值整数递增1。如果键不存在，则在执行操作之前将其设置为0。 如果键包含错误类型的值或包含无法表示为整数的字符串，则会返回错误。此操作限于64位有符号整数。
 				System.out.println(jedis.get("name") + " " + jedis.get("age") + " " + jedis.get("email"));
 		}
@@ -218,11 +220,13 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		@Test
 		public void saveOrderTest() {
 				Order order = new Order();
-				order.setId("3");
+				order.setId("2018060811111");
 				order.setPrice(40);
+				order.setCreateDate(new Date());
+				order.setOrderNo("121212121");
 				boolean cc = orderDao.save(order);
 				System.out.println(cc);
-				Order order2 = orderDao.read("3");
+				Order order2 = orderDao.read("2018060811111");
 				System.out.println(order2);
 		}
 

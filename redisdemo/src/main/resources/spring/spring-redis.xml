@@ -15,7 +15,9 @@
     <bean id="redisConnectionFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
           p:usePool="true" p:hostName="${redis.ip}" p:port="${redis.port}" p:poolConfig-ref="jedisPoolConfig"/>
-    <!-- 定义String 字符串序列化以及反序列化 类 -->
+    <!-- 定义String 字符串序列化以及反序列化 类
+        设定使用的序列化时候以及反序列化时候的编解码集方法
+     -->
     <bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer">
        <constructor-arg name="charset" value="UTF8"/>
     </bean>
