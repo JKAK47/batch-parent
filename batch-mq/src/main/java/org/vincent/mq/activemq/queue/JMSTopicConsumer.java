@@ -1,4 +1,6 @@
-package org.vincent.mq.queue;
+package org.vincent.mq.activemq.queue;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -7,7 +9,6 @@ import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
  * batch-parent.org.vincent.mq <br/>
@@ -33,7 +34,7 @@ public class JMSTopicConsumer implements Runnable{
         MessageConsumer messageConsumer;//消息的消费者
 
         //第一步，实例化连接工厂
-        connectionFactory = new ActiveMQConnectionFactory(MqConfigConstants.USERNAME, MqConfigConstants.PASSWORD, MqConfigConstants.BROKEURL);
+        connectionFactory = new ActiveMQConnectionFactory(MqConfigConstants.USERNAME, MqConfigConstants.PASSWORD, MqConfigConstants.BROKEURL_ALI);
 
         try {
             //第二步，通过连接工厂获取连接

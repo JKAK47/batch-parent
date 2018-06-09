@@ -1,4 +1,4 @@
-package org.vincent.mq.topic;
+package org.vincent.mq.activemq.topic;
 
 import common.SimpleFixedThreadPool;
 import org.junit.After;

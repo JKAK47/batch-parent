@@ -1,4 +1,6 @@
-package org.vincent.mq.queue;
+package org.vincent.mq.activemq.queue;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -8,7 +10,6 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
  * batch-parent.org.vincent.mq <br/>
@@ -49,18 +50,18 @@ public class JMSProducer implements  Runnable{
         Destination destination;
         //消息生产者
         MessageProducer messageProducer;
-        //实例化连接工厂
-        connectionFactory = new ActiveMQConnectionFactory(MqConfigConstants.USERNAME, MqConfigConstants.PASSWORD, MqConfigConstants.BROKEURL);
+        //第一步： 实例化连接工厂
+        connectionFactory = new ActiveMQConnectionFactory(MqConfigConstants.USERNAME, MqConfigConstants.PASSWORD, MqConfigConstants.BROKEURL_ALI);
         try {
-            //通过连接工厂获取连接
+            //第二步： 获取连接 通过连接工厂获取连接
             connection = connectionFactory.createConnection();
             //启动连接
             connection.start();
-            //创建session，开启事务
+            //第三步： 获取会话，创建session，开启事务，发送消息开启事务
             session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
-            //创建一个名称为Vincent的消息队列，消息队列是消息生产者以及消费者共同拥有的一个结构
+            //第四步，在消息中介创建一个消息队列；创建一个名称为Vincent的消息队列，消息队列是消息生产者以及消费者共同拥有的一个结构
             destination = session.createQueue(MqConfigConstants.QueueName);
-            //创建消息生产者
+            //第五步， 创建消息生产者
             messageProducer = session.createProducer(destination);
             // 设置消息不需要持久化
             //// 发送消息。non-persistent 默认异步发送；persistent 默认同步发送(同步发送会阻塞生产者

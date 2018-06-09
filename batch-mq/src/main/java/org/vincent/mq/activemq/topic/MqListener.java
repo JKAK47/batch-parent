@@ -1,4 +1,4 @@
-package org.vincent.mq.topic;
+package org.vincent.mq.activemq.topic;
 
 import javax.jms.MapMessage;
 import javax.jms.Message;

@@ -1,4 +1,7 @@
-package org.vincent.mq.topic;
+package org.vincent.mq.activemq.topic;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.vincent.mq.activemq.queue.MqConfigConstants;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -9,9 +12,6 @@ import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.vincent.mq.queue.MqConfigConstants;
 
 /**
  * @Package: org.vincent.mq.topic <br/>
@@ -25,8 +25,7 @@ import org.vincent.mq.queue.MqConfigConstants;
  * @Created by PengRong on 2017/12/31. <br/>
  */
 public class MyTopicMessageProducer implements Runnable {
-		@Autowired
-		MqConfigConstants mqConfigConstants;
+
 		private ConnectionFactory factory;
 
 		/**
@@ -45,21 +44,22 @@ public class MyTopicMessageProducer implements Runnable {
 				System.out.println("topic 消息类型开始产生消息 " + "生产者: " + Thread.currentThread().getName());
 				try {
 						/**第一步 创建连接工厂*/
-						factory = new ActiveMQConnectionFactory(MqConfigConstants.USERNAME, MqConfigConstants.PASSWORD, MqConfigConstants.BROKEURL);
+						factory = new ActiveMQConnectionFactory(MqConfigConstants.USERNAME, MqConfigConstants.PASSWORD, MqConfigConstants.BROKEURL_ALI);
 						/**第二步 创建JMS 连接*/
 						Connection connection = factory.createConnection();
 						connection.start();
-						/** 创建Session,开启事务 */
+						/** 第三步 创建Session,开启事务 */
 						Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
-						/** 创建topic,Topic是 Destination接口的子接口*/
-						Topic topic = session.createTopic(mqConfigConstants.TopicName);
-						/** 创建生产者producer */
+						/** 第四步： 创建topic,Topic是 Destination接口的子接口*/
+						Topic topic = session.createTopic(MqConfigConstants.TopicName);
+						/** 第五步 创建生产者producer */
 						MessageProducer producer = session.createProducer(topic);
 
 						/** 设置消息不需要持久化 */
 						producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 						//发送文本消息
 						while (true) {
+								/** 第六步 发送消息 */
 								Message message = createMessage(session,"vincent",27,"江西省赣州市");
 								producer.send(message);
 								session.commit();//开启事务必须需要提交，消费者才能获取到
@@ -74,7 +74,7 @@ public class MyTopicMessageProducer implements Runnable {
 		}
 
 		/**
-		 * 构建消息发出者发出的消息实体
+		 * 构建消息发送者发出的消息实体
 		 *
 		 * @return
 		 * @param session
