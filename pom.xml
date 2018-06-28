@@ -478,5 +478,6 @@
         <module>springmvcwebapp</module>
         <module>batch-mq</module>
         <module>redisdemo</module>
+        <module>ehcache35</module>
     </modules>
 </project>
