@@ -21,7 +21,6 @@ import java.time.Duration;
  */
 public class EhcachePersistenceOffice {
 	public static void main(String[] args) {
-
 		PersistentCacheManager persistentCacheManager = CacheManagerBuilder.newCacheManagerBuilder()
 				.with(CacheManagerBuilder.persistence(new File(getStoragePath(), "myData")))
 				// Expiry  定义数据entry 有效期的策略，这个是Cache级别。
@@ -32,9 +31,16 @@ public class EhcachePersistenceOffice {
 								//构建Time-To-Live ExpiryPolicy
 										.withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(5))).build())
 				.build(true);
-		Cache<Long, String> threeTieredCache = persistentCacheManager.getCache("threeTieredCache", Long.class,
+		Cache<Long, String> threeTieredCache = persistentCacheManager.getCache("threeTieredCache-1", Long.class,
 				String.class);
-		threeTieredCache.put(1L, "stillAvailableAfterRestart");
+		try {
+			if (threeTieredCache!=null){
+				System.out.println("begin put ");
+				threeTieredCache.put(4L, "123456");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		persistentCacheManager.close();
 	}
 
@@ -43,7 +49,6 @@ public class EhcachePersistenceOffice {
 	 * @return
 	 */
 	private static String getStoragePath() {
-		// TODO Auto-generated method stub
 		// 构建数据存放目录
 		// 獲取到target/classes目录
 		URL targetURL = EhCachePersistence.class.getClassLoader().getResource("");
