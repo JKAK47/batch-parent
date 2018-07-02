@@ -12,15 +12,18 @@
      -->
 
     <!-- Redis + Spring date 集成 模版  开始 -->
+    <!-- 设置redis 连接工厂，主要是redis 一些 ip，端口，redis配置信息 ，以及选择数据库信息(默认是 0)-->
     <bean id="redisConnectionFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          p:usePool="true" p:hostName="${redis.ip}" p:port="${redis.port}" p:poolConfig-ref="jedisPoolConfig"/>
+          p:usePool="true" p:hostName="${redis.ip}" p:port="${redis.port}" p:poolConfig-ref="jedisPoolConfig"
+        p:database="1"  />
     <!-- 定义String 字符串序列化以及反序列化 类
-        设定使用的序列化时候以及反序列化时候的编解码集方法
+        设定序列化时候以及反序列化时候的编解码集方法
      -->
     <bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer">
        <constructor-arg name="charset" value="UTF8"/>
     </bean>
+    <!-- redis 连接模版 ，这个模版包含了redis 所有的操作方法 -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connectionFactory-ref="redisConnectionFactory"
     p:enableTransactionSupport="true" p:keySerializer-ref="stringSerializer" >
         <property name="hashKeySerializer"> <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/></property>

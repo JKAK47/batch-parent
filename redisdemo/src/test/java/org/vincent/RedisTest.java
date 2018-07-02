@@ -220,19 +220,19 @@ public class RedisTest extends AbstractJUnit4SpringContextTests {
 		@Test
 		public void saveOrderTest() {
 				Order order = new Order();
-				order.setId("2018060811111");
+				order.setId("2018061111111");
 				order.setPrice(40);
 				order.setCreateDate(new Date());
 				order.setOrderNo("121212121");
 				boolean cc = orderDao.save(order);
 				System.out.println(cc);
-				Order order2 = orderDao.read("2018060811111");
+				Order order2 = orderDao.read("2018061011111");
 				System.out.println(order2);
 		}
 
 		@Test
 		public void deleteTest() {
-				orderDao.delete("3");
+				orderDao.delete("2018061011111");
 		}
 
 

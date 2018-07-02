@@ -22,15 +22,27 @@ import org.springframework.stereotype.Component;
 public class OrderDao {
 		@Autowired
 		private RedisTemplate<String,Order> redisTemplate;
+		private final static String keyPrefix="Order";
 
+		/**
+		 * 给存储的键值对 设置一个前缀，这样在redismanager 管理软件中就有等级目录划分了。
+		 * @param key
+		 * @return
+		 */
+		public  String getKey(String key){
+				return  OrderDao.keyPrefix+":"+key;
+		}
 		/**
 		 * 保存一个对象到Redis
 		 * @param order
 		 * @return
 		 */
 		public  boolean save(Order order){
+
 				ValueOperations<String,Order> valueOperations=redisTemplate.opsForValue();
-				boolean result=valueOperations.setIfAbsent(order.getId(),order);
+
+				/** 设置key， value如果key不存在将插入键值对 k-v， k为字符串形式插入。 */
+				boolean result=valueOperations.setIfAbsent(getKey(order.getId()),order);
 				return  result;
 		}
 
@@ -39,7 +51,7 @@ public class OrderDao {
 					return null;
 				}
 				ValueOperations<String,Order> valueOperations= redisTemplate.opsForValue();
-				Order order = valueOperations.get(id);
+				Order order = valueOperations.get(getKey(id));
 				return order;
 		}
 		public void  delete(String id){
@@ -48,6 +60,6 @@ public class OrderDao {
 				}
 				ValueOperations<String,Order> valueOperations=redisTemplate.opsForValue();
 				RedisOperations<String,Order> redisOperations = valueOperations.getOperations();
-				redisOperations.delete(id);
+				redisOperations.delete(getKey(id));
 		}
 }

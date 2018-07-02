@@ -1,5 +1,7 @@
 package org.vincent;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class AppTest
     @Test
     public void  AppTest( String testName )
     {
+        ArrayList<String> list=new ArrayList<>();
+        list.removeAll(Collections.singleton(null));
         Jedistemplate.execute((RedisCallback<Boolean>) connection -> {
             byte [] key = "tempkey".getBytes();
             byte[] value = "tempvalue".getBytes();
