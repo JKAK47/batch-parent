@@ -8,9 +8,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>ehcache-35</artifactId>
-
+    <packaging>jar</packaging>
+    <name>ehcache 缓存框架 案例</name>
+    <url>http://maven.apache.org</url>
     <dependencies>
 
         <dependency>
