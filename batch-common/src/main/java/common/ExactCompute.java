@@ -64,8 +64,8 @@ public class ExactCompute {
     }
 
     /**
-     * double 精确相乘
-     *
+     * <p> double 精确相乘 </p>
+     * parama * paramb
      * @param parama
      * @param paramb
      * @return

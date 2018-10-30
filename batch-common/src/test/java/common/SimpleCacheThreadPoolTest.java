@@ -65,7 +65,7 @@ public class SimpleCacheThreadPoolTest extends BaseTest {
         List<Future<String>> lists=new ArrayList<>(200);
         // 提交任务并获取到能拿到结果的类示例 Future
         for (int i = 0; i < 200; i++) {
-            future= (Future<String>) simpleCacheThreadPool.addTask((Callable<String>) () -> "Thread "+Thread.currentThread().getName()+"\t"+new Random().nextInt()+"\t Vincent");
+            future= simpleCacheThreadPool.addTask(() -> "Thread "+Thread.currentThread().getName()+"\t"+new Random().nextInt()+"\t Vincent");
             lists.add(future);
         }
         // 遍历Future类的List 列表；获取结果并打印
